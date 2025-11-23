@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/loja.css">
 
-
     <title>Marcos Coutinho - A loja virtual</title>
 
 </head>
@@ -168,12 +167,12 @@
     </main>
 
 
-
-    <script src="js/compras.js"></script>
-    <script src="js/links.js"></script>
-    <script src="js/produtos.js"></script>
-    <script src="js/pegarProduto.js"></script>
-
 </body>
+
+
+<script src="js/compras.js"></script>
+<script src="js/links.js"></script>
+<script src="js/produtos.js"></script>
+<script src="js/pegarProduto.js"></script>
 
 </html>

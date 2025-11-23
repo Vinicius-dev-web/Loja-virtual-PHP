@@ -413,7 +413,7 @@ main {
             background-color: var(--cor-loja3); */
         }
 
-        .cards-prods {
+        .lista-produtos {
             display: flex;
             flex-wrap: wrap;
 
@@ -951,7 +951,7 @@ footer {
             background-color: var(--cor-loja3); */
             }
 
-            .cards-prods {
+            .lista-produtos {
                 display: flex;
                 flex-wrap: wrap;
 
@@ -1006,8 +1006,8 @@ footer {
                         background: var(--cor-borda2);
                     }
                 }
-            }
 
+            }
 
         }
     }

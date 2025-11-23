@@ -89,12 +89,10 @@
                             <th>Foto</th>
                             <th>Produto</th>
                             <th>Preço</th>
-                            <th>Data</th>
                             <th>Hora</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php
                         require "php/conexao.php";
@@ -104,16 +102,17 @@
 
                         if ($result && $result->num_rows > 0) {
                             while ($p = $result->fetch_assoc()) {
-                                echo "
-                                <tr>
-                                    <td><img src='" . $p['imagem'] . "' width='60'></td>
-                                    <td>" . $p['nome'] . "</td>
-                                    <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
-                                    <td>" . date('d/m/Y', strtotime($p['data_criacao'])) . "</td>
-                                    <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
-                                    <td><i class='bi bi-pencil-square' onclick='editProduto(" . $p['id'] . ")'></i></td>
-                                </tr>
-                                ";
+                                echo "<tr>
+                    <td><img src='" . $p['imagem'] . "' width='60'></td>
+                    <td>" . $p['nome'] . "</td>
+                    <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
+                    <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
+                    <td>
+                        <button class='btn-editar' onclick='editarProduto(" . $p['id'] . ", \"" . addslashes($p['nome']) . "\", " . $p['preco'] . ")'>
+                            <i class='bi bi-pencil-square'></i> Editar
+                        </button>
+                    </td>
+                </tr>";
                             }
                         } else {
                             echo "<tr><td colspan='6'>Nenhum produto cadastrado.</td></tr>";
@@ -122,6 +121,7 @@
                     </tbody>
                 </table>
             </div>
+
 
         </section>
 
@@ -197,10 +197,13 @@
             <div class="msg" id="msg">
 
                 <h1>Você está acessando a loja...</h1>
-                <span>Verifique se outra aba está aberta no seu navegador. Caso não esteja, considere como um erro técnico ou que os arquivos ainda estejam sendo enviados ao servidor.</span>
+                <span>Verifique se outra aba está aberta no seu navegador. Caso não esteja, considere como um erro
+                    técnico ou que os arquivos ainda estejam sendo enviados ao servidor.</span>
 
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
+
+                <button onclick="pagephp()">Tente esse</button>
             </div>
         </section>
 
@@ -209,9 +212,17 @@
     <div class="edit-produto-table" id="edit-produto-table">
         <div class="edit-table">
             <div class="form">
-                <input type="text" name="" id="" placeholder="Nome do produto">
-                <input type="text" name="" id="" placeholder="Preço do produto">
-                <button>Excluir</button>
+                <input type="hidden" id="edit-id">
+                <label>Nome do produto</label>
+                <input type="text" id="edit-nome" placeholder="Nome do produto">
+
+                <label>Preço do produto</label>
+                <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01">
+
+                <label>Imagem (opcional)</label>
+                <input type="file" id="edit-imagem" accept="image/*">
+
+                <button id="delete-produto">Excluir</button>
 
                 <div class="btn-edit-table">
                     <button id="save-table">Salvar</button>
@@ -221,6 +232,7 @@
         </div>
     </div>
 
+
 </body>
 
 <script>
@@ -229,7 +241,6 @@
     }
 </script>
 
-<!-- seus JS locais (caminho relativo está certo) -->
 <script src="js/painel.js"></script>
 <script src="js/datas.js"></script>
 <script src="js/editTable.js"></script>
@@ -237,7 +248,8 @@
 
 <script>
     function loja() {
-        window.open('https://marcos-loja.vercel.app/', '_blank');
+        // window.open('https://marcos-loja.vercel.app/', '_blank');
+        window.open('http://localhost/marcos_lojavirtual/index.php', '_blank');
     }
 </script>
 

@@ -24,6 +24,10 @@
 
     <nav>
 
+        <span class="logo" id="logo">
+            Marcos<span>Loja</span>
+        </span>
+
         <label for="search">
             <i class="bi bi-search"></i>
             <input type="text" id="search" placeholder="Buscar produto ou palavra-chave">
@@ -159,6 +163,16 @@
 
                 $conn->close();
                 ?>
+
+                <div class="card">
+                    <img src="img/Fone-De-Ouvido-Tws-Bluetooth_1736543662_gg.webp" alt="" srcset="">
+
+                    <h3>Fone de ouvido TWS</h3>
+
+                    <p>R$59,90</p>
+
+                    <button class="btn-comprar">Comprar</button>
+                </div>
             </div>
 
 

@@ -129,19 +129,19 @@
 
             <div class="form-div" id="file-create">
 
-                <h2>Cadastrar Produto</h2>
-
-                <!-- repara no path: php/cadastroProduto.php -->
                 <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data">
 
-                    <label>Nome do Produto</label>
-                    <input type="text" name="nome" required>
+                    <label>
 
-                    <label>Preço</label>
-                    <input type="number" name="preco" step="0.01" required>
+                        <i class="bi bi-card-image"></i>
+                        <span>Coloque uma imagem*</span>
 
-                    <label>Imagem</label>
-                    <input type="file" name="imagem" accept="image/*" required>
+                        <input type="file" name="imagem" accept="image/*" required hidden>
+                    </label>
+                    
+                    <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
+
+                    <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
 
                     <button type="submit">Cadastrar</button>
                 </form>
@@ -203,21 +203,23 @@
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
 
-                <button onclick="pagephp()">Tente esse</button>
+                <button onclick="loja()">Tente esse</button>
             </div>
         </section>
 
     </main>
 
     <div class="edit-produto-table" id="edit-produto-table">
+
         <div class="edit-table">
+            
             <div class="form">
                 <input type="hidden" id="edit-id">
                 <label>Nome do produto</label>
-                <input type="text" id="edit-nome" placeholder="Nome do produto">
+                <input type="text" id="edit-nome" placeholder="Nome do produto" maxlength="25">
 
                 <label>Preço do produto</label>
-                <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01">
+                <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01" maxlength="6">
 
                 <label>Imagem (opcional)</label>
                 <input type="file" id="edit-imagem" accept="image/*">

@@ -380,10 +380,12 @@ main {
     }
 
     .create {
-
+        
         .form-div {
             display: flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
 
             form {
                 display: flex;

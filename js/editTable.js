@@ -1,5 +1,6 @@
 function editarProduto(id, nome, preco) {
     // Abre o modal
+
     const modal = document.getElementById("edit-produto-table");
     modal.classList.add("abrir");
 

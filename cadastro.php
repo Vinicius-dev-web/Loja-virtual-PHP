@@ -3,8 +3,10 @@ session_start();
 
 $erro = $_SESSION['erro_login'] ?? "";
 $msg_cadastro = $_SESSION['msg_cadastro'] ?? "";
+$slug_loja = $_SESSION['slug_loja'] ?? ""; // ← PEGANDO O SLUG
 
-unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
+// ❗ IMPORTANTE: só apague depois de pegar os valores
+unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']);
 ?>
 
 
@@ -54,7 +56,17 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
             <button type="submit"><b>CADASTRAR</b></button>
             <button type="button" onclick="window.location.href='login.php'"><b>ENTRAR</b></button>
 
-            <div id="msg" style="color: green;"><b><?php echo $msg_cadastro; ?></b></div>
+            <div id="msg" style="color: green;">
+                <b><?php echo $msg_cadastro; ?></b><br>
+
+                <?php if (!empty($slug_loja)): ?>
+                    <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
+                        style="color: blue; font-weight: bold;">
+                        👉 Acessar sua loja
+                    </a>
+                <?php endif; ?>
+            </div>
+
 
         </form>
 

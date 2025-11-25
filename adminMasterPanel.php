@@ -178,6 +178,7 @@ $res = $stmt->get_result();
                                     <button class="danger small" type="submit">Excluir</button>
                                 </form>
 
+
                             </td>
 
                         </tr>

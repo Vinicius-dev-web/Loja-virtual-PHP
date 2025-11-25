@@ -3,10 +3,11 @@ session_start();
 
 $erro = $_SESSION['erro_login'] ?? "";
 $msg_cadastro = $_SESSION['msg_cadastro'] ?? "";
+$slug_loja = $_SESSION['slug_loja'] ?? ""; // PEGANDO O SLUG DA LOJA
 
-unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
+// apagar depois que pegar
+unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -48,7 +49,23 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
             <button type="submit"><b>ENTRAR</b></button>
             <!-- <button type="button" onclick="window.location.href='cadastro.php'"><b>CRIAR CONTA</b></button> -->
 
-            <div id="error" style="color: var(--cor-vermelho);"><b><?php echo $erro; ?></b></div>
+            <div id="error" style="color: var(--cor-vermelho);">
+                <b><?php echo $erro; ?></b>
+            </div>
+
+            <!-- Mostra mensagem de cadastro -->
+            <div id="cadastro-msg" style="color: green; margin-top: 10px;">
+                <b><?php echo $msg_cadastro; ?></b><br>
+
+                <?php if (!empty($slug_loja)): ?>
+                    <a href="loja/index.php?slug=<?php echo $slug_loja; ?>" target="_blank"
+                        style="color: blue; font-weight: bold;">
+                        👉 Acessar sua loja
+                    </a>
+
+                <?php endif; ?>
+            </div>
+
 
         </form>
 

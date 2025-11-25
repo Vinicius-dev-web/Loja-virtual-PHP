@@ -42,7 +42,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
         <div class="painel-info">
 
-            <h1>MarcosTech</h1>
+            <h1>Painel</h1>
 
             <ul>
                 <li data-target="produtos">
@@ -61,14 +61,14 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <i class="bi bi-chat-right-text"></i>
                     <span>CHAT</span>
                 </li>
-                <li data-target="users">
+                <!-- <li data-target="users">
                     <i class="bi bi-people"></i>
                     <span>USUÁRIOS</span>
-                </li>
-                <li data-target="cog">
+                </li> -->
+                <!-- <li data-target="cog">
                     <i class="bi bi-building"></i>
                     <span>EMPRESA</span>
-                </li>
+                </li> -->
                 <li data-target="loja" onclick="loja()">
                     <i class="bi bi-arrow-bar-right"></i>
                     <span>Loja</span>
@@ -225,7 +225,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
             </div>
         </section> -->
 
-        <section class="users" id="users">
+        <!-- <section class="users" id="users">
 
             <div class="form-div">
 
@@ -253,13 +253,13 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                 </form>
             </div>
-        </section>
+        </section> -->
 
         <section class="cog" id="cog">
 
             <div class="form-div">
 
-                <form action="">
+                <!-- <form action="">
                     <label for="file" id="file-cog">
                         <i class="bi bi-building-gear"></i>
                         <span>Adicione uma logo</span>
@@ -270,6 +270,13 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <input type="tel" name="" id="cog-tel-user" placeholder="Número de telefone (opcional)">
 
                     <button class="submit" id="submit">Salvar</button>
+                </form> -->
+
+                <h3>Configurar Loja</h3>
+
+                <form action="php/criarLoja.php" method="POST">
+                    <input type="text" name="nome_loja" placeholder="Nome da loja (ex: minha-loja)" required>
+                    <button type="submit">Criar loja</button>
                 </form>
 
                 <form action="php/excluirConta.php" method="POST"
@@ -428,9 +435,12 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
 <script>
     function loja() {
-        // window.open('https://marcos-loja.vercel.app/', '_blank');
-        window.open('http://localhost/marcos_lojavirtual/index.php', '_blank');
+        window.open(
+            "http://localhost/marcos_lojavirtual/loja/index.php?loja=<?php echo $_SESSION['loja_slug']; ?>",
+            "_blank"
+        );
     }
+
 </script>
 
 <!-- TEMA / MODO CLARO/ESCURO -->

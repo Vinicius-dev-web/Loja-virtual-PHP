@@ -58,7 +58,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
                 <b><?php echo $msg_cadastro; ?></b><br>
 
                 <?php if (!empty($slug_loja)): ?>
-                    <a href="loja/index.php?slug=<?php echo $slug_loja; ?>" target="_blank"
+                    <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
                         style="color: blue; font-weight: bold;">
                         👉 Acessar sua loja
                     </a>

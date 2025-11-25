@@ -194,7 +194,6 @@ nav {
 
     width: calc(100% - 250px);
 
-
     position: fixed;
     left: 0;
     top: 0;
@@ -811,6 +810,13 @@ main {
 
                 label{
                     cursor: pointer;
+                    padding: 10px;
+
+                    border-radius: 100%;
+
+                    &:hover{
+                        background-color: var(--cor-fundo7);
+                    }
                 }
 
                 input {
@@ -825,6 +831,44 @@ main {
                     border: none;
                     outline: none;
                 }
+
+                button{
+
+                    background-color: transparent;
+                    border: none;
+
+                    font-size: 20px;
+
+                    color: var(--cor-texto1);
+                    padding: 10px;
+
+                    cursor: pointer;
+                    border-radius: 100%;
+                    
+                    &:hover{
+                        background: var(--cor-fundo7);
+                    }
+                }
+            }
+        }
+
+        .showImgMsg{
+
+            position: absolute;
+            bottom: 200;
+            left: 430px;
+
+            background-color: var(--cor-fundo8);
+            border: 2px dashed var(--cor-fundo6);
+            border-radius: 10px;
+            
+            max-width: 100px;
+            max-height: 100px;
+
+            img{
+                object-fit: cover;
+                width: 100%;
+                height: auto;
             }
         }
     }

@@ -5,12 +5,19 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-session_start();
-
 $erro = $_SESSION['erro_login'] ?? "";
 $msg_cadastro = $_SESSION['msg_cadastro'] ?? "";
-
 unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
+
+// Conexão e pegar o slug da loja
+require "php/conexao.php";
+$usuario_id = $_SESSION['usuario_id'];
+$stmt = $conn->prepare("SELECT slug FROM lojas WHERE usuario_id = ?");
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$loja = $result->fetch_assoc();
+$slug_loja = $loja['slug'] ?? "";
 ?>
 
 <!DOCTYPE html>
@@ -58,19 +65,11 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <span>PEDIDOS</span>
                 </li>
                 <li data-target="msg-sec">
-                    <i class="bi bi-chat-right-text"></i>
+                    <i class="bi bi-chat-square-dots"></i>
                     <span>CHAT</span>
                 </li>
-                <!-- <li data-target="users">
-                    <i class="bi bi-people"></i>
-                    <span>USUÁRIOS</span>
-                </li> -->
-                <!-- <li data-target="cog">
-                    <i class="bi bi-building"></i>
-                    <span>EMPRESA</span>
-                </li> -->
-                <li data-target="loja" onclick="loja()">
-                    <i class="bi bi-arrow-bar-right"></i>
+                <li data-target="loja" id="menuLoja">
+                    <i class="bi bi-arrow-up-right-square"></i>
                     <span>Loja</span>
                 </li>
             </ul>
@@ -81,7 +80,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
             <i class="bi bi-box-arrow-right"></i>
             <span>SAIR</span>
         </div>
-
 
     </div>
 
@@ -105,7 +103,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
     <main class="page">
 
         <section class="produtos" id="produtos">
-
             <div class="tabela-container">
                 <table class="tabela-estilo">
                     <thead>
@@ -123,7 +120,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                         $usuario_id = $_SESSION['usuario_id'];
                         $sql = "SELECT * FROM produtos WHERE usuario_id = $usuario_id ORDER BY id DESC";
-
                         $result = $conn->query($sql);
 
                         if ($result && $result->num_rows > 0) {
@@ -147,159 +143,47 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     </tbody>
                 </table>
             </div>
-
-
         </section>
 
         <section class="create" id="create">
-
             <div class="form-div" id="file-create">
-
                 <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data">
-
                     <label>
-
                         <i class="bi bi-card-image"></i>
                         <span>Coloque uma imagem*</span>
-
                         <input type="file" name="imagem" accept="image/*" required hidden>
                     </label>
-
                     <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
-
                     <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
-
                     <button type="submit">Cadastrar</button>
                 </form>
-
             </div>
         </section>
 
-        <section class="orders" id="orders">
-        </section>
-
-        <!-- <section class="orders" id="orders">
-
-            <ul class="painel-order" id="painel-order">
-
-                <li class="profile-order" data-target="msg-sec">
-    
-                    <div class="profile-order-card">
-    
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-    
-                        <h3>Vinicius</h3>
-    
-                    </div>
-    
-                    <div class="info-order-card">
-    
-                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
-    
-                    </div>
-    
-                </li>
-                <li class="profile-order" data-target="msg-sec">
-    
-                    <div class="profile-order-card">
-    
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-    
-                        <h3>Vinicius</h3>
-    
-                    </div>
-    
-                    <div class="info-order-card">
-    
-                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
-    
-                    </div>
-    
-                </li>
-
-            </ul>
-
-
-            </div>
-        </section> -->
-
-        <!-- <section class="users" id="users">
-
-            <div class="form-div">
-
-                <form method="POST" action="php/cadastroCliente.php">
-
-                    <label for="nome">
-                        <i class="bi bi-person"></i>
-                        <input type="text" name="nome" id="nome" placeholder="Nome" required>
-                    </label>
-
-                    <label for="email">
-                        <i class="bi bi-envelope"></i>
-                        <input type="email" name="email" id="email" placeholder="Email" value="@net" required>
-                    </label>
-
-                    <label for="senha">
-                        <i class="bi bi-key"></i>
-                        <input type="password" name="senha" id="senha" placeholder="Senha" required>
-                    </label>
-
-                    <button type="submit"><b>CADASTRAR</b></button>
-                    <div id="msg" style="color: green;"><b>
-                            <?php echo $msg_cadastro; ?>
-                        </b></div>
-
-                </form>
-            </div>
-        </section> -->
+        <section class="orders" id="orders"></section>
 
         <section class="cog" id="cog">
-
             <div class="form-div">
-
-                <!-- <form action="">
-                    <label for="file" id="file-cog">
-                        <i class="bi bi-building-gear"></i>
-                        <span>Adicione uma logo</span>
-                        <input type="file" name="" id="file-cog-image" hidden>
-                    </label>
-
-                    <input type="text" name="" id="cog-name-user" placeholder="Nome da empresa">
-                    <input type="tel" name="" id="cog-tel-user" placeholder="Número de telefone (opcional)">
-
-                    <button class="submit" id="submit">Salvar</button>
-                </form> -->
-
                 <h3>Configurar Loja</h3>
-
                 <form action="php/criarLoja.php" method="POST">
                     <input type="text" name="nome_loja" placeholder="Nome da loja (ex: minha-loja)" required>
                     <button type="submit">Criar loja</button>
                 </form>
-
                 <form action="php/excluirConta.php" method="POST"
                     onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!')">
-                    <button id="deleteAccount" type="submit">
-                        Excluir conta
-                    </button>
+                    <button id="deleteAccount" type="submit">Excluir conta</button>
                 </form>
-
             </div>
         </section>
 
         <section class="loja" id="loja">
             <div class="msg" id="msg">
-
                 <h1>Você está acessando a loja...</h1>
                 <span>Verifique se outra aba está aberta no seu navegador. Caso não esteja, considere como um erro
                     técnico ou que os arquivos ainda estejam sendo enviados ao servidor.</span>
-
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
-
-                <button onclick="loja()">Tente esse</button>
+                <!-- <button>Tente esse</button> -->
             </div>
         </section>
 
@@ -356,7 +240,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                     <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
                         alt="sem foto">
-                    <h1>Anônimo</h1>
+                    <h1>Cliente</h1>
 
                 </div>
 
@@ -374,16 +258,22 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                             <input type="file" name="" id="file-chat" hidden>
 
-                            <i class="bi bi-folder-symlink"></i>
+                            <i class="bi bi-plus-lg"></i>
 
                         </label>
 
                         <input type="text" name="" id="" placeholder="Fale com o cliente...">
 
-                        <button type="submit">Enviar</button>
+                        <button type="submit">
+                            <i class="bi bi-send"></i>
+                        </button>
 
                     </div>
 
+                </div>
+
+                <div class="showImgMsg" id="showImgMsg" hidden>
+                    <img src="" alt="">
                 </div>
 
             </div>
@@ -395,22 +285,16 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
     </main>
 
     <div class="edit-produto-table" id="edit-produto-table">
-
         <div class="edit-table">
-
             <div class="form">
                 <input type="hidden" id="edit-id">
                 <label>Nome do produto</label>
                 <input type="text" id="edit-nome" placeholder="Nome do produto" maxlength="25">
-
                 <label>Preço do produto</label>
                 <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01" maxlength="6">
-
                 <label>Imagem (opcional)</label>
                 <input type="file" id="edit-imagem" accept="image/*">
-
                 <button id="delete-produto">Excluir</button>
-
                 <div class="btn-edit-table">
                     <button id="save-table">Salvar</button>
                     <button id="cancel">Cancelar</button>
@@ -421,36 +305,16 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
 </body>
 
-<!-- <script>
-    function logout() {
-        location.href = "login.php";
-    }
-</script> -->
-
 <script src="js/painel.js"></script>
 <script src="js/datas.js"></script>
 <script src="js/editTable.js"></script>
 <script src="js/links.js"></script>
-<!-- <script src="js/modais.js"></script> -->
 
+<!-- Tema / Modo claro/escuro -->
 <script>
-    function loja() {
-        window.open(
-            "http://localhost/marcos_lojavirtual/loja/index.php?loja=<?php echo $_SESSION['loja_slug']; ?>",
-            "_blank"
-        );
-    }
-
-</script>
-
-<!-- TEMA / MODO CLARO/ESCURO -->
-
-<script>
-
     function updateIcon(theme) {
         const icon = document.getElementById("themeIcon");
         if (!icon) return;
-
         if (theme === "light") {
             icon.classList.remove("bi-brightness-high");
             icon.classList.add("bi-moon");
@@ -474,8 +338,20 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
         updateIcon(savedTheme);
 
         const btn = document.getElementById("toggleThemeBtn");
-        if (btn) {
-            btn.addEventListener("click", toggleTheme);
+        if (btn) btn.addEventListener("click", toggleTheme);
+
+        // Loja - menu e botão
+        const urlLoja = "loja/loja.php?slug=<?php echo $slug_loja; ?>";
+
+        const liLoja = document.getElementById("menuLoja");
+        if (liLoja) {
+            liLoja.addEventListener("click", () => window.open(urlLoja, "_blank"));
+            liLoja.querySelector("span").textContent = "Minha Loja";
+        }
+
+        const btnLoja = document.querySelector("#loja button");
+        if (btnLoja) {
+            btnLoja.addEventListener("click", () => window.open(urlLoja, "_blank"));
         }
     });
 </script>

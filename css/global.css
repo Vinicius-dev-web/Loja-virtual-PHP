@@ -17,6 +17,8 @@
     --cor-quaternárias: #00FF6F;
     /**/
 
+    --cor-fundo: #ffffff;
+
     --cor-fundo1: #1448E6;
     /**/
     --cor-fundo2: #3478F7;
@@ -38,14 +40,17 @@
 
     --cor-loja2: linear-gradient(to top, #0353ff, #0b1a50);
 
-    /* --cor-loja3: #4618AC; */
-    --cor-loja3: linear-gradient(to right, #155CFB, #193DBC);
+    --cor-loja3: #4618AC;
+    /* --cor-loja3: linear-gradient(to right, #155CFB, #193DBC); */
 
     --cor-loja4: #341281;
 
     --cor-card: #123A8C;
+    --cor-card1: #ffffff;
+
     --cor-borda: #9395A5;
     --cor-borda2: #2069FF;
+    --cor-borda3: #341281;
 
     --cor-tabela1: #ffffff15;
     --cor-tabela2: #ffffff10;
@@ -62,6 +67,9 @@
     /*Cor da núvem*/
     --cor-laranja2: #b46102;
     /*Cor da núvem com hover*/
+    --amarelo: #FAD318;
+    /*  */
+    --amarelo2: #F0A613;
 
     --cor-alternativo: #E8F0FE;
     /**/

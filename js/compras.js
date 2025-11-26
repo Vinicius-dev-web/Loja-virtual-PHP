@@ -1,118 +1,94 @@
-const numeroWhatsApp = "988671941";
+document.addEventListener("DOMContentLoaded", () => {
 
-let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const numeroWhatsApp = "988671941";
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-const iconeMenuMobile = document.getElementById("abrirMenuMobile");
-const painelMenuMobile = document.getElementById("esquerda");
+    const iconeMenuMobile = document.getElementById("abrirMenuMobile");
+    const painelMenuMobile = document.getElementById("esquerda");
 
-const iconeCarrinho = document.getElementById("abrirCarrinho");
-const painelCarrinho = document.getElementById("carrinho");
+    const iconeCarrinho = document.getElementById("abrirCarrinho");
+    const painelCarrinho = document.getElementById("carrinho");
 
-const listaCarrinho = document.getElementById("lista-carrinho");
-const btnFinalizar = document.getElementById("btnFinalizar");
+    const listaCarrinho = document.getElementById("lista-carrinho");
+    const btnFinalizar = document.getElementById("btnFinalizar");
 
-// Abrir e fechar carrinho
-iconeCarrinho.addEventListener("click", () => {
-    painelCarrinho.classList.toggle("aberto");
-    renderizarCarrinho();
-});
-
-// Abrir e fechar menu-mobile
-iconeMenuMobile.addEventListener("click", () => {
-    painelMenuMobile.classList.toggle("abrir");
-    
-});
-
-// Botões de adicionar
-document.querySelectorAll(".btn-comprar").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const produto = btn.getAttribute("data-produto");
-
-        carrinho.push(produto);
-        salvarCarrinho();
+    iconeCarrinho.addEventListener("click", () => {
+        painelCarrinho.classList.toggle("aberto");
         renderizarCarrinho();
-        atualizarContador(); 
-    });
-});
-
-// Salvar no localStorage
-function salvarCarrinho() {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-// Renderizar carrinho
-function renderizarCarrinho() {
-    listaCarrinho.innerHTML = "";
-
-    carrinho.forEach((produto, index) => {
-        const item = document.createElement("p");
-        item.innerHTML = `
-            ${produto}
-            <button onclick="removerItem(${index})">X</button>
-        `;
-        listaCarrinho.appendChild(item);
     });
 
-    // 🔥 Ativar/desativar botão finalizar
-    btnFinalizar.disabled = carrinho.length === 0;
-}
+    iconeMenuMobile.addEventListener("click", () => {
+        painelMenuMobile.classList.toggle("abrir");
+    });
 
-// Remover item
-function removerItem(index) {
-    carrinho.splice(index, 1);
-    salvarCarrinho();
-    renderizarCarrinho();
-    atualizarContador(); 
-}
+    document.querySelectorAll(".btn-comprar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const produto = btn.getAttribute("data-produto");
+            carrinho.push(produto);
+            salvarCarrinho();
+            renderizarCarrinho();
+            atualizarContador();
+        });
+    });
 
-// Finalizar pedido (WhatsApp)
-btnFinalizar.addEventListener("click", () => {
-
-    if (carrinho.length === 0) {
-        alert("Carrinho vazio!");
-        return;
+    function salvarCarrinho() {
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
     }
 
-    let mensagem = "Olá! Tenho interesse nesses produtos:\n\n";
+    function renderizarCarrinho() {
+        listaCarrinho.innerHTML = "";
+        carrinho.forEach((produto, index) => {
+            const item = document.createElement("p");
+            item.innerHTML = `${produto} <button onclick="removerItem(${index})">X</button>`;
+            listaCarrinho.appendChild(item);
+        });
+        btnFinalizar.disabled = carrinho.length === 0;
+    }
 
-    carrinho.forEach(item => {
-        mensagem += `• ${item}\n`;
+    window.removerItem = function (index) {
+        carrinho.splice(index, 1);
+        salvarCarrinho();
+        renderizarCarrinho();
+        atualizarContador();
+    }
+
+    btnFinalizar.addEventListener("click", () => {
+        if (carrinho.length === 0) {
+            alert("Carrinho vazio!");
+            return;
+        }
+
+        let mensagem = "Olá! Tenho interesse nesses produtos:\n\n";
+        carrinho.forEach(item => {
+            mensagem += `• ${item}\n`;
+        });
+        mensagem += "\nPodemos continuar o atendimento?";
+        const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, "_blank");
+
+        carrinho = [];
+        salvarCarrinho();
+        renderizarCarrinho();
+        atualizarContador();
     });
 
-    mensagem += "\nPodemos continuar o atendimento?";
+    document.getElementById("fecharCarrinho").addEventListener("click", () => {
+        painelCarrinho.classList.remove("aberto");
+    });
 
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+    document.getElementById("fecharMenuMobile").addEventListener("click", () => {
+        painelMenuMobile.classList.remove("abrir");
+    });
 
-    window.open(url, "_blank");
+    function atualizarContador() {
+        const contador = document.getElementById("contadorCarrinho");
+        contador.textContent = carrinho.length;
+        contador.classList.remove("pop");
+        void contador.offsetWidth;
+        contador.classList.add("pop");
+    }
 
-    // ✔ Esvazia o carrinho após enviar o pedido
-    carrinho = [];
-    salvarCarrinho();
-    renderizarCarrinho();
     atualizarContador();
+    renderizarCarrinho();
+
 });
-
-// Botão para fechar o carrinho
-document.getElementById("fecharCarrinho").addEventListener("click", () => {
-    painelCarrinho.classList.remove("aberto");
-});
-
-// Botão para fechar o menuMobile
-document.getElementById("fecharMenuMobile").addEventListener("click", () => {
-    painelMenuMobile.classList.remove("abrir");
-});
-
-// Contador + animação
-function atualizarContador() {
-    const contador = document.getElementById("contadorCarrinho");
-    contador.textContent = carrinho.length;
-
-    // Animação POP
-    contador.classList.remove("pop");
-    void contador.offsetWidth; 
-    contador.classList.add("pop");
-}
-
-// Atualiza contador ao carregar
-atualizarContador();
-renderizarCarrinho();

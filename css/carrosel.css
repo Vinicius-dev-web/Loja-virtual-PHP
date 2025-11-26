@@ -1,0 +1,16 @@
+.carrossel-container {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.carrossel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* transição suave */
+}
+
+.carrossel-track img {
+    min-width: 100%; /* ocupa toda a largura do container */
+    height: 600px;
+    object-fit: cover;
+}

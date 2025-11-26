@@ -37,7 +37,6 @@ $slug_loja = $loja['slug'] ?? "";
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/painel.css">
-    <link rel="stylesheet" href="css/modal.css">
 
     <title>Painel de controle - Administativo</title>
 
@@ -58,7 +57,7 @@ $slug_loja = $loja['slug'] ?? "";
                 </li>
                 <li data-target="create">
                     <i class="bi bi-images"></i>
-                    <span>PRODUTO</span>
+                    <span>CRIAR</span>
                 </li>
                 <li data-target="orders">
                     <i class="bi bi-cart3"></i>
@@ -67,6 +66,10 @@ $slug_loja = $loja['slug'] ?? "";
                 <li data-target="msg-sec">
                     <i class="bi bi-chat-square-dots"></i>
                     <span>CHAT</span>
+                </li>
+                <li data-target="">
+                    <i class="bi bi-building-gear"></i>
+                    <span>LOJA</span>
                 </li>
                 <li data-target="loja" id="menuLoja">
                     <i class="bi bi-arrow-up-right-square"></i>
@@ -86,7 +89,9 @@ $slug_loja = $loja['slug'] ?? "";
     <nav class="main-content">
 
         <div class="adm-info-up">
-            <h2><?php echo $_SESSION['usuario']; ?></h2>
+            <h2>
+                <?php echo $_SESSION['usuario']; ?>
+            </h2>
             <span>Painel de controle</span>
         </div>
 
@@ -146,15 +151,22 @@ $slug_loja = $loja['slug'] ?? "";
         </section>
 
         <section class="create" id="create">
+
             <div class="form-div" id="file-create">
+
                 <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data">
+
                     <label>
+
                         <i class="bi bi-card-image"></i>
                         <span>Coloque uma imagem*</span>
                         <input type="file" name="imagem" accept="image/*" required hidden>
+
                     </label>
+
                     <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
                     <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
+
                     <button type="submit">Cadastrar</button>
                 </form>
             </div>
@@ -278,27 +290,40 @@ $slug_loja = $loja['slug'] ?? "";
 
             </div>
 
-
-            </div>
         </section>
 
     </main>
 
     <div class="edit-produto-table" id="edit-produto-table">
+
         <div class="edit-table">
+
             <div class="form">
+
                 <input type="hidden" id="edit-id">
-                <label>Nome do produto</label>
-                <input type="text" id="edit-nome" placeholder="Nome do produto" maxlength="25">
-                <label>Preço do produto</label>
-                <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01" maxlength="6">
-                <label>Imagem (opcional)</label>
-                <input type="file" id="edit-imagem" accept="image/*">
-                <button id="delete-produto">Excluir</button>
+                <label>
+                    <i class="bi bi-pencil"></i>
+                    <input type="text" id="edit-nome" placeholder="Nome do produto" maxlength="25">
+                </label>
+
+
+                <label>
+                    <i class="bi bi-pencil"></i>
+                    <input type="number" id="edit-preco" placeholder="Preço do produto" step="0.01" maxlength="6">
+                </label>
+
+                <label class="upload-edit">
+                    <i class="bi bi-image"></i>
+                    <input type="file" id="edit-imagem" accept="image/*" hidden>
+                </label>
+
+                <button id="save-table">Salvar</button>
+
                 <div class="btn-edit-table">
-                    <button id="save-table">Salvar</button>
+                    <button id="delete-produto">Excluir</button>
                     <button id="cancel">Cancelar</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -309,6 +334,7 @@ $slug_loja = $loja['slug'] ?? "";
 <script src="js/datas.js"></script>
 <script src="js/editTable.js"></script>
 <script src="js/links.js"></script>
+<script src="js/modais.js"></script>
 
 <!-- Tema / Modo claro/escuro -->
 <script>

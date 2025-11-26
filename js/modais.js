@@ -1,15 +1,15 @@
 
-function showMsg() {
+// function openMsgChat(){
 
-    const modal = document.getElementById("chat-div");
+//     const msg = document.getElementById("chat-div");
 
-    modal.classList.add("abrir")
+//     msg.classList.add("abrir")
 
-    modal.addEventListener('click', (e) => {
+//     msg.addEventListener("click", (e) => {
 
-        if(e.target.id == "closeMsg"){
+//         if(e.target.id == "close-chat-div"){
 
-            modal.remove("abrir")
-        }
-    })
-}
+//             msg.classList.remove("abrir")
+//         }
+//     })
+// }

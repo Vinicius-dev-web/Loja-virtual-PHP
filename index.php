@@ -134,11 +134,6 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
         <section class="produtos" id="produtos">
 
-            <!-- <header>
-                <img src="https://files.tecnoblog.net/wp-content/uploads/2025/06/Capa-TBR-Eletronicos-de-Consumo-1060x596.png"
-                    alt="Sem foto">
-            </header> -->
-
             <h1>Produtos</h1>
 
             <div id="lista-produtos" class="lista-produtos">
@@ -173,6 +168,18 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                     echo '<p>Nenhum produto cadastrado.</p>';
                 }
                 ?>
+
+                <!-- <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
+                </div> -->
             </div>
 
         </section>
@@ -184,7 +191,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sem foto">
             </header>
 
-            <h2>Lojas parceiras</h2>
+            <!-- <h2>Lojas parceiras</h2> -->
 
             <div id="lista-lojas" class="lista-lojas">
                 <?php
@@ -202,13 +209,12 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                         $slug = htmlspecialchars($loja['slug'] ?? "#");
 
                         echo '
-                        <a href="loja/loja.php?slug=' . $slug . '" class="btn-entrar">
+                        <a href="loja/loja.php?slug=' . $slug . '" target="_blank" class="btn-entrar">
 
                             <div class="card-loja">
 
                                 <img src="' . $imagem . '" alt="' . $nome_loja . '" loading="lazy">
                                 <h3>' . $nome_loja . '</h3>
-                                <i class="bi bi-arrow-right"></i>
                             
                             </div>
                         </a>
@@ -230,9 +236,9 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
                         <i class="bi bi-arrow-right"></i>
                     </div>
-                </a> -->
+                </a>
 
-                <!-- <a href="loja.php?slug=' . $slug . '" class="btn-entrar">
+                <a href="loja.php?slug=' . $slug . '" class="btn-entrar">
                     <div class="card-loja">
                         <img src="img/carregador_power_bank_5_000mah_11082_1_2b9fd69b3ca4b56d80bcdc71271a290a.webp"
                             alt="' . $nome_loja . '" loading="lazy">

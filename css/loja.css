@@ -523,10 +523,13 @@ main {
                 img {
                     width: 100%;
                     max-width: 100%;
+                    min-height: 250px;
+                    max-height: 250px;
                     /* border-radius: 10px; */
 
                     /* border: 1px solid #ccc; */
 
+                    background-color: var(--cor-loja3);
                     object-fit: cover;
                 }
 
@@ -787,13 +790,13 @@ footer {
             }
 
             .menu-mobile {
-                display: inline-block;
+                display: none;
             }
 
             #contadorCarrinho {
                 position: absolute;
-                top: -8px;
-                right: -8px;
+                top: 0px;
+                right: 0px;
                 background: red;
                 color: white;
                 border-radius: 50%;
@@ -1086,8 +1089,8 @@ footer {
 
     main {
 
-        margin: 6rem 2rem;
-        padding-bottom: 100px;
+        margin: 0rem 2rem 0px 2rem;
+        padding-bottom: 0px;
 
         /* .home{} */
 
@@ -1095,10 +1098,13 @@ footer {
 
         .produtos {
 
+            margin: -50px 0px;
+
             header {
 
                 display: flex;
                 justify-content: center;
+                align-items: center;
 
                 img {
                     width: 100%;
@@ -1112,10 +1118,9 @@ footer {
             h1 {
                 color: var(--cor-texto1);
 
-                text-align: center;
 
                 width: 100%;
-                padding: 40px;
+                padding: 40px 0px 0px 0px;
 
                 /* position: sticky;
             top: 100px;
@@ -1128,6 +1133,7 @@ footer {
             .lista-produtos {
                 display: flex;
                 flex-wrap: wrap;
+                justify-content: center;
 
                 gap: 12px;
 
@@ -1186,6 +1192,72 @@ footer {
 
             }
 
+        }
+
+        /* Lojas */
+
+        .lojas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            margin: 20px 0px;
+
+            h2 {
+                color: var(--cor-texto1);
+
+                width: 100%;
+                padding: 40px 0px 0px 0px;
+
+            }
+
+            header {
+
+                display: none;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+
+            .lista-lojas {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                a {
+                    text-decoration: none;
+                }
+
+                .card-loja {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    align-items: start;
+
+                    width: 150px;
+
+                    padding: 10px;
+                    margin: 5px;
+
+                    color: var(--cor-texto1);
+
+                    border-radius: 10px;
+                    border: 1px solid var(--cor-borda2);
+
+                    background-color: var(--cor-loja3);
+
+                    &:hover {
+                        background-color: var(--cor-borda2);
+                    }
+
+                    img {
+                        width: 50px;
+                    }
+
+                }
+            }
         }
     }
 

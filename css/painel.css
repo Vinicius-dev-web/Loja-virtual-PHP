@@ -1,6 +1,8 @@
 body {
-    background-color: var(--cor-fundo3);
-    overflow-x: hidden;
+    background: var(--painel);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #deleteAccount {
@@ -50,6 +52,9 @@ body {
     }
 }
 
+button {
+    cursor: pointer;
+}
 
 .form-div {
     display: flex;
@@ -87,7 +92,7 @@ body {
     bottom: 0;
     z-index: 2;
 
-    width: 250px;
+    width: 200px;
     max-width: 300px;
 
     padding: 10px;
@@ -96,8 +101,8 @@ body {
     height: 100vh;
 
     color: var(--cor-texto1);
-    background-color: var(--cor-fundo4);
-    border-right: 1px solid var(--cor-borda1);
+    background-color: var(--cor-loja3);
+    /* border-right: 1px solid var(--cor-borda1); */
 
     h1 {
         text-align: center;
@@ -132,7 +137,7 @@ body {
                 /* background-color: var(--cor-btn3); */
 
                 &:hover {
-                    background-color: var(--cor-borda1);
+                    background-color: var(--cor-loja4);
                 }
 
             }
@@ -141,8 +146,8 @@ body {
                 /* background: #6a11cb22; */
                 /* border-left: 4px solid #6a11cb; */
 
-                background: var(--cor-fundo5);
-                border-left: 4px solid var(--cor-borda2);
+                background: var(--cor-loja4);
+                border-left: 4px solid var(--cor-fundo);
 
                 padding-left: 12px;
             }
@@ -184,7 +189,7 @@ body {
 }
 
 nav {
-    background-color: var(--cor-fundo4);
+    background-color: var(--cor-loja3);
 
     display: flex;
     justify-content: space-between;
@@ -192,7 +197,7 @@ nav {
 
     /* flex-direction: column; */
 
-    width: calc(100% - 250px);
+    width: calc(100% - 200px);
 
     position: fixed;
     left: 0;
@@ -204,11 +209,12 @@ nav {
 
     color: var(--cor-texto1);
 
-    margin-left: 250px;
+    margin-left: 200px;
+    margin-right: 0px;
 
     overflow: hidden;
 
-    border-bottom: 1px solid var(--cor-borda1);
+    /* border-bottom: 1px solid var(--cor-borda1); */
 
     /* empurra para a direita do sidebar */
     /* margin-left: 16.5rem; */
@@ -220,10 +226,11 @@ nav {
 
         padding: 15px;
 
-        border: 1px solid var(--cor-borda1);
+        /* border: 1px solid var(--cor-borda1); */
+        border: none;
         border-radius: 15px;
 
-        background-color: var(--cor-borda1);
+        background-color: var(--cor-loja4);
 
         span {
             margin-right: 10px;
@@ -289,12 +296,13 @@ main {
 
         .tabela-container {
             width: 100%;
-            /* max-width: 900px; */
             margin: 40px 0;
-            background: var(--cor-tabela2);
-            /* padding: 20px; */
+
+            background: var(--cor-fundo9);
             border-radius: 20px;
-            backdrop-filter: blur(20px);
+
+            color: var(--cor-texto2);
+
             border: 1px solid #ffffff22;
             box-shadow: 0 8px 20px #00000020;
 
@@ -307,11 +315,14 @@ main {
 
                 /* Cabeçalho */
                 thead th {
-                    background-color: var(--cor-tabela1);
+
+                    background: var(--cor-tabela1);
                     padding: 14px 18px;
                     font-size: 14px;
                     font-weight: 600;
                     text-align: left;
+
+                    color: var(--cor-texto2);
                     border-bottom: 1px solid #ffffff22;
                     backdrop-filter: blur(10px);
                 }
@@ -320,6 +331,8 @@ main {
                 td {
                     padding: 16px 18px;
                     font-size: 15px;
+
+                    color: var(--cor-texto2);
                     border-bottom: 1px solid #ffffff15;
 
                     img {
@@ -403,6 +416,7 @@ main {
             justify-content: center;
             align-items: center;
 
+
             form {
                 display: flex;
                 flex-direction: column;
@@ -413,16 +427,26 @@ main {
                     flex-direction: column;
                     align-items: center;
 
+                    border: 1px solid transparent;
+
+                    background-color: var(--cor-fundo9);
+                    box-shadow: 0 8px 20px #00000020;
+
                     padding: 80px;
                     margin-bottom: 30px;
 
                     i {
                         font-size: 100px;
+                        color: var(--cor-loja3);
+                    }
+
+                    span {
+                        color: var(--cor-loja3);
                     }
 
                     &:hover {
                         /* background-color: var(--cor-borda1); */
-                        border: 1px solid var(--cor-borda2);
+                        border: 1px solid var(--cor-loja3);
                     }
                 }
 
@@ -434,29 +458,29 @@ main {
                     margin: 5px 0px;
 
                     color: var(--cor-texto1);
-                    background-color: var(--cor-fundo3);
+                    background-color: var(--cor-fundo9);
+                    box-shadow: 0 8px 20px #00000020;
 
-                    border: 1px solid var(--cor-borda2);
+                    border: 1px solid transparent;
                     border-radius: 5px;
 
                     outline: none;
 
                     &:hover {
-                        border: 1px solid var(--cor-fundo6);
+                        border: 1px solid var(--cor-loja3);
                     }
 
                     &:focus {
-                        border: 1px solid var(--cor-fundo6);
-                        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                        border: 1px solid var(--cor-loja3);
                     }
                 }
 
                 button {
                     cursor: pointer;
+                    background-color: var(--cor-loja3);
 
                     &:hover {
-
-                        background-color: var(--cor-fundo1);
+                        background-color: var(--cor-loja4);
                     }
                 }
             }
@@ -664,7 +688,9 @@ main {
 
             padding: 20px;
 
-            background: var(--cor-loja);
+            background-color: var(--cor-fundo9);
+            box-shadow: 0 8px 20px #00000020;
+
             border-radius: 10px;
 
             .profile-msg {
@@ -676,14 +702,14 @@ main {
                 padding: 10px;
                 margin: 5px 10px;
 
-                background-color: var(--cor-loja4);
+                background-color: var(--cor-loja3);
 
                 border-radius: 10px;
 
                 cursor: pointer;
 
                 &:hover {
-                    background: var(--cor-borda2);
+                    background-color: var(--cor-loja4);
                 }
 
                 /* Foto e nome do cliente */
@@ -726,12 +752,13 @@ main {
                 }
             }
         }
-
     }
 
     .chat-div {
+        justify-content: center;
+        align-items: center;
 
-        overflow-y: hidden;
+        color: var(--cor-texto2);
 
         .info-cliente,
         .chat-commands {
@@ -746,7 +773,8 @@ main {
             height: 650px;
 
             border-radius: 10px;
-            background: var(--cor-fundo7);
+            background: var(--cor-fundo9);
+            box-shadow: 0 8px 20px #00000020;
 
         }
 
@@ -771,13 +799,13 @@ main {
             height: 100%;
 
             border-radius: 10px;
-            background: var(--cor-fundo8);
+            background: var(--cor-fundo10);
 
             word-wrap: break-word;
 
             overflow-y: auto;
 
-            span{
+            span {
                 margin: 5px 0px;
             }
 
@@ -793,7 +821,7 @@ main {
 
         .chat-commands {
 
-            background: var(--cor-fundo8);
+            background: var(--cor-fundo10);
             border-radius: 10px;
             padding: 10px;
 
@@ -808,13 +836,14 @@ main {
                 padding: 0px 20px;
                 width: 100%;
 
-                label{
+                label {
                     cursor: pointer;
                     padding: 10px;
 
                     border-radius: 100%;
+                    color: var(--cor-texto2);
 
-                    &:hover{
+                    &:hover {
                         background-color: var(--cor-fundo7);
                     }
                 }
@@ -825,34 +854,34 @@ main {
                     padding: 15px;
                     margin: 0px 5px;
 
-                    color: var(--cor-texto1);
+                    color: var(--cor-texto2);
                     background-color: transparent;
 
                     border: none;
                     outline: none;
                 }
 
-                button{
+                button {
 
                     background-color: transparent;
                     border: none;
 
                     font-size: 20px;
 
-                    color: var(--cor-texto1);
+                    color: var(--cor-texto2);
                     padding: 10px;
 
                     cursor: pointer;
                     border-radius: 100%;
-                    
-                    &:hover{
+
+                    &:hover {
                         background: var(--cor-fundo7);
                     }
                 }
             }
         }
 
-        .showImgMsg{
+        .showImgMsg {
 
             position: absolute;
             bottom: 200;
@@ -861,15 +890,115 @@ main {
             background-color: var(--cor-fundo8);
             border: 2px dashed var(--cor-fundo6);
             border-radius: 10px;
-            
+
             max-width: 100px;
             max-height: 100px;
 
-            img{
+            img {
                 object-fit: cover;
                 width: 100%;
                 height: auto;
             }
         }
     }
+
 }
+
+/* Modal(is) */
+
+/* Editar */
+
+.edit-produto-table.abrir {
+    display: flex;
+}
+
+.edit-produto-table {
+
+    display: none;
+
+    .edit-table {
+
+        width: 100%;
+        background-color: rgb(0, 0, 0, 0.2);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+
+
+        .form {
+
+            opacity: 1;
+            display: flex;
+            flex-direction: column;
+
+            padding: 20px;
+            border-radius: 5px;
+
+            background: var(--painel);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+
+            label {
+
+                background-color: var(--cor-fundo9);
+                box-shadow: 0 8px 20px #00000020;
+                padding: 10px;
+                margin: 5px 0px;
+
+                input {
+                    width: 400px;
+
+                    border: none;
+                    border-radius: 5px;
+
+                    outline: none;
+
+                }
+
+            }
+
+            .upload-edit {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                i {
+                    font-size: 80px;
+                }
+            }
+
+            button {
+                padding: 10px;
+                margin: 5px 0px;
+
+                color: var(--cor-texto1);
+
+                border: none;
+                border-radius: 5px;
+                background-color: var(--cor-loja3);
+
+                &:hover {
+                    background-color: var(--cor-loja4);
+                }
+            }
+        }
+    }
+}
+
+/* Chat */

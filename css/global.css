@@ -36,6 +36,11 @@
     --cor-fundo8: #191C2D;
     /* Fundo tabela2 & chat hover */
 
+    --cor-fundo9: #ffffff;
+    --cor-fundo10: #EEEEF9;
+
+    --painel: linear-gradient(to right, #F8F8FC, #ECECF8);
+
     --cor-loja: linear-gradient(to right, #155CFB, #193DBC);
 
     --cor-loja2: linear-gradient(to top, #0353ff, #0b1a50);
@@ -101,7 +106,6 @@ html[data-theme="light"] {
     --cor-fundo6: #d8d8d8;
 
     --cor-texto1: #000;
-    /* --cor-preto: #000; */
 
     --cor-borda1: #00000010;
     --cor-borda2: #6a11cb;

@@ -40,7 +40,9 @@ $nome_loja = $loja["nome_fantasia"];
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="loja.css">
 
-    <title><?php echo $nome_loja ?> - Loja Virtual</title>
+    <title>
+        <?php echo $nome_loja ?> - Loja Virtual
+    </title>
 
 </head>
 
@@ -87,7 +89,9 @@ $nome_loja = $loja["nome_fantasia"];
                 <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
                     alt="sem foto">
 
-                <h4><?php echo $nome_loja ?></h4>
+                <h4>
+                    <?php echo $nome_loja ?>
+                </h4>
 
             </div>
 
@@ -136,20 +140,32 @@ $nome_loja = $loja["nome_fantasia"];
         <button class="btn-finalizar" id="btnFinalizar">Finalizar Pedido</button>
     </div>
 
+    <header>
+        <img class="header-banner"
+            src="https://marketplace.canva.com/EAFONczDVWo/1/0/1600w/canva-banner-promo%C3%A7%C3%A3o-de-roupas-para-site-marrom-e-cinza-Yv34J28l6yU.jpg"
+            alt="Banner">
+    </header>
+
     <main class="page" id="page">
 
-        <section class="home" id="home"></section>
+        <section class="home" id="home">
+            <div class="info-client">
+
+                <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                    alt="sem foto">
+
+                <h1>
+                    <?php echo $nome_loja ?>
+                </h1>
+
+            </div>
+        </section>
 
         <!-- ----------- Produtos ----------- -->
 
         <section class="produtos" id="produtos">
 
-            <header>
-                <img src="https://files.tecnoblog.net/wp-content/uploads/2025/06/Capa-TBR-Eletronicos-de-Consumo-1060x596.png"
-                    alt="Sem foto">
-            </header>
-
-            <h1>Produtos</h1>
+            <h2>Produtos</h2>
 
             <div id="lista-produtos" class="lista-produtos">
                 <?php
@@ -167,7 +183,7 @@ $nome_loja = $loja["nome_fantasia"];
                         echo '<div class="card">
             <img src="' . htmlspecialchars($imagemPath) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
             <h3>' . htmlspecialchars($p['nome']) . '</h3>
-            <p class="preco">R$ ' . number_format($p['preco'], 2, ',', '.') . '</p>
+            <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
             <button class="btn-comprar" 
                 data-produto="' . htmlspecialchars($p['nome']) . '" 
                 data-preco="' . $p['preco'] . '" 
@@ -187,6 +203,60 @@ $nome_loja = $loja["nome_fantasia"];
 
         </section>
 
+        <!-- ----------- banners -----------  -->
+
+        <section class="banners" id="banners">
+
+            <h2>Destaques</h2>
+
+            <div class="banners-div" id="banners-div">
+
+                <img src="https://marketplace.canva.com/EAF0RxuySjc/1/0/800w/canva-banner-de-black-friday-formato-paisagem-org%C3%A2nico-delicado-em-lavanda-e-cinza-ard%C3%B3sia-yiGSUITHLd0.jpg" alt="banner">
+
+            </div>
+
+        </section>
+
+        <!-- ----------- Contato -----------  -->
+
+        <!-- <section class="contato" id="contato">
+
+            <h2>Contato</h2>
+
+            <div class="contato-div" id="contato-div">
+
+                <div class="contato-labels">
+
+                    <label for="">
+                        <button id="">
+                            <i class="bi bi-person"></i>
+                            <?php echo $nome_loja ?>
+                        </button>
+                    </label>
+
+                    <label for="tel">
+                        <button id="tel">
+                            <i class="bi bi-telephone"></i>
+                            <?php echo $tel_loja ?>
+                        </button>
+                    </label>
+
+                    <label for="">
+                        <button id=""></button>
+                    </label>
+
+                    <label for="">
+                        <button id=""></button>
+                    </label>
+
+                </div>
+
+            </div>
+        </section> -->
+
+        <!-- <footer>
+            &copy;BolvierTeam
+        </footer> -->
     </main>
 
 </body>

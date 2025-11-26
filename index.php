@@ -281,7 +281,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".nav");
 
-        if (window.scrollY > 50) {
+        if (window.scrollY > 10) {
             navbar.classList.add("scrolled");
         } else {
             navbar.classList.remove("scrolled");

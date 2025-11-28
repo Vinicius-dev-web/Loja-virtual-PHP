@@ -38,7 +38,8 @@ $imagem_loja = $loja['imagem'] ?? "";
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/painel.css">
@@ -54,7 +55,7 @@ $imagem_loja = $loja['imagem'] ?? "";
         <div class="painel-info">
 
             <?php if (!empty($imagem_loja)): ?>
-                <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+            <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
             <?php endif; ?>
 
             <br>
@@ -80,7 +81,7 @@ $imagem_loja = $loja['imagem'] ?? "";
                     <i class="bi bi-chat-square-dots"></i>
                     <span>CHAT</span>
                 </li>
-                <li data-target="">
+                <li data-target="cog">
                     <i class="bi bi-building-gear"></i>
                     <span>LOJA</span>
                 </li>
@@ -168,35 +169,67 @@ $imagem_loja = $loja['imagem'] ?? "";
 
         <section class="create" id="create">
 
+
             <div class="form-div" id="file-create">
 
-                <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data">
+                <h1>Produto</h1>
 
-                    <h1>Produto</h1>
+                <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data" class="form-prod">
 
-                    <label>
+                    <label id="labelImagemProd">
+                        <i class="bi bi-card-image" id="iconeLabelProd"></i>
+                        <span id="textoLabelProd">Coloque uma imagem*</span>
 
-                        <i class="bi bi-card-image"></i>
-                        <span>Coloque uma imagem*</span>
-                        <input type="file" name="imagem" accept="image/*" required hidden>
+                        <input type="file" id="inputImagem" name="imagem" accept="image/*" required hidden>
 
+                        <img id="previewImagemProd">
                     </label>
 
-                    <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
-                    <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
+                    <div class="values-create" id="values-create">
 
-                    <button type="submit">Cadastrar</button>
+                        <div class="input-values-create">
+
+                            <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
+                            <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6"
+                                required>
+
+                            <input type="text" name="" id="description-prod"
+                                placeholder="Descrição do produto. Ex.: Cor Amarelo, Azul">
+
+                            <select name="" id="">
+
+                                <option value="">Sem tamanho</option>
+                                <option value="">PP</option>
+                                <option value="">P</option>
+                                <option value="">M</option>
+                                <option value="">G</option>
+                                <option value="">GG</option>
+
+                            </select>
+
+                        </div>
+
+                        <button type="submit">Cadastrar</button>
+
+
+                    </div>
+
+
                 </form>
 
-                <form action="php/cadastroBanner.php" method="POST" enctype="multipart/form-data" id="form-banner">
+                <h1>Banner</h1>
 
-                    <h1>Banner</h1>
+                <form action="php/cadastroBanner.php" method="POST" enctype="multipart/form-data" class="form-banner">
 
-                    <label>
+                    <label id="labelImagemBanner">
 
-                        <i class="bi bi-card-image"></i>
-                        <span>Coloque uma imagem*</span>
+                        <i class="bi bi-card-image" id="iconeLabelBanner"></i>
+
+                        <span id="textoLabelBanner">Coloque uma imagem*</span>
+
                         <input type="file" name="imagem" accept="image/*" required hidden>
+
+                        <img id="previewImagemBanner">
 
                     </label>
 
@@ -208,15 +241,57 @@ $imagem_loja = $loja['imagem'] ?? "";
         <section class="orders" id="orders"></section>
 
         <section class="cog" id="cog">
+
             <div class="form-div">
-                <h3>Configurar Loja</h3>
-                <form action="php/criarLoja.php" method="POST">
-                    <input type="text" name="nome_loja" placeholder="Nome da loja (ex: minha-loja)" required>
-                    <button type="submit">Criar loja</button>
+
+                <form action="" method="POST">
+
+                    <label id="labelImagemCog">
+                        <i class="bi bi-card-image" id="iconeLabelCog"></i>
+                        <span id="textoLabelCog">Coloque uma imagem*</span>
+
+                        <input type="file" id="inputImagem" name="imagem" accept="image/*" hidden>
+
+                        <img src="" alt="" id="previewImagemCog" hidden>
+
+                    </label>
+
+                    <div class="values-create" id="values-create">
+
+                        <div class="input-values-create">
+
+                            <input type="text" name="nome" placeholder="Nome da empresa*" maxlength="25">
+
+                            <input type="text" name="" id="description-prod"
+                                placeholder="Descrição da loja. Ex.: Loja de Roupas e Sapatos 😎✌️👕👖👟">
+                            </textarea>
+
+                            <select name="" id="">
+
+                                <option value="">Sem descrição</option>
+                                <option value="">Roupas</option>
+                                <option value="">Sapatos</option>
+                                <option value="">Roupas e sapatos</option>
+                                <option value="">Eletrônicos</option>
+                                <option value="">Informática</option>
+                                <option value="">Eletrônicos e informática</option>
+                                <option value="">Diversos</option>
+
+                            </select>
+
+                        </div>
+
+                        <button type="submit">Cadastrar</button>
+
+
+                    </div>
                 </form>
+
                 <form action="php/excluirConta.php" method="POST"
                     onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!')">
+
                     <button id="deleteAccount" type="submit">Excluir conta</button>
+
                 </form>
             </div>
         </section>
@@ -413,6 +488,71 @@ $imagem_loja = $loja['imagem'] ?? "";
             btnLoja.addEventListener("click", () => window.open(urlLoja, "_blank"));
         }
     });
+</script>
+
+<script>
+
+    document.getElementById("labelImagemProd").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const preview = document.getElementById("previewImagemProd");
+                preview.src = e.target.result;
+                preview.style.display = "block"; // mostra a imagem
+
+                // esconder ícone e texto
+                document.getElementById("iconeLabelProd").style.display = "none";
+                document.getElementById("textoLabelProd").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    document.getElementById("labelImagemBanner").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const preview = document.getElementById("previewImagemBanner");
+                preview.src = e.target.result;
+                preview.style.display = "block"; // mostra a imagem
+
+                // esconder ícone e texto
+                document.getElementById("iconeLabelBanner").style.display = "none";
+                document.getElementById("textoLabelBanner").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById("labelImagemCog").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const preview = document.getElementById("previewImagemCog");
+                preview.src = e.target.result;
+                preview.style.display = "block"; // mostra a imagem
+
+                // esconder ícone e texto
+                document.getElementById("iconeLabelCog").style.display = "none";
+                document.getElementById("textoLabelCog").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
 </script>
 
 </html>

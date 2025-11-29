@@ -77,14 +77,14 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                     <i class="bi bi-images"></i>
                     <span>CRIAR</span>
                 </li>
-                <li data-target="orders">
+                <!-- <li data-target="orders">
                     <i class="bi bi-cart3"></i>
                     <span>PEDIDOS</span>
                 </li>
                 <li data-target="msg-sec">
                     <i class="bi bi-chat-square-dots"></i>
                     <span>CHAT</span>
-                </li>
+                </li> -->
                 <li data-target="cog">
                     <i class="bi bi-building-gear"></i>
                     <span>LOJA</span>

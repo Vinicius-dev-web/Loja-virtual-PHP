@@ -19,75 +19,54 @@ if (!$loja) {
     die("Loja não existe.");
 }
 
-$usuario_id = $loja["usuario_id"]; // loja pertence a esse usuário
+$usuario_id = $loja["usuario_id"];
 $nome_loja = $loja["nome_fantasia"];
-$imagem_db = $loja["imagem"] ?? ""; // o que está salvo no banco (pode ser nome do arquivo ou caminho)
+$imagem_db = $loja["imagem"] ?? "";
 
-// Função auxiliar para resolver o caminho correto da imagem (tenta várias possibilidades)
+// Função auxiliar para resolver o caminho correto da imagem
 function resolverCaminhoImagemLoja($valorDb)
 {
-    // local onde este script está (loja/loja.php), precisamos subir 1 nível para acessar uploads
-    $baseDir = __DIR__ . "/../"; // caminho físico para a raiz do projeto
-    $candidates = [];
-
-    // Normaliza
+    $baseDir = realpath(__DIR__ . "/../") . "/";
     $v = trim($valorDb);
 
     if ($v === "" || $v === null) {
         return null;
     }
 
-    // Se o valor já contém "http" ou começa com "/" -> usa como está (externo ou absoluto)
     if (preg_match('#^https?://#i', $v) || strpos($v, '/') === 0) {
         return $v;
     }
 
-    // Possíveis formatos que podem estar no DB:
-    // 1) "uploads/loja/arquivo.jpg"
-    // 2) "uploads/lojas/arquivo.jpg"
-    // 3) "uploads/arquivo.jpg"
-    // 4) "loja/arquivo.jpg"
-    // 5) "arquivo.jpg" (apenas nome do arquivo, comum)
-    // 6) "../uploads/loja/arquivo.jpg"
-    // 7) any other (try raw)
-
-    $candidates[] = 'uploads/loja/' . $v;
-    $candidates[] = 'uploads/lojas/' . $v;
-    $candidates[] = 'uploads/' . $v;
-    $candidates[] = 'loja/' . $v;
-    $candidates[] = $v;
-    $candidates[] = '../' . $v;
-    $candidates[] = $v; // fallback
+    $candidates = [
+        'uploads/loja/' . $v,
+        'uploads/lojas/' . $v,
+        'uploads/' . $v,
+        'loja/' . $v,
+        $v,
+        '../' . $v
+    ];
 
     foreach ($candidates as $rel) {
-        // path físico para verificar existência
         $physical = realpath($baseDir . $rel);
         if ($physical && file_exists($physical)) {
-            // devolve caminho relativo para o HTML (a partir de loja/loja.php precisamos subir 1 nível)
-            // Se $rel já começa com '../' ou '/', não modif.
             if (strpos($rel, '/') === 0) {
                 return $rel;
             }
-            // Caso retornado deve ser acessível via ../<rel> porque estamos em /loja/loja.php
             return '../' . $rel;
         }
     }
 
-    // se não achou, tenta usar $v como URL absoluta se tiver http
-    if (preg_match('#^https?://#i', $v))
+    if (preg_match('#^https?://#i', $v)) {
         return $v;
+    }
 
-    // nada encontrado
     return null;
 }
 
-// resolve imagem da loja
 $imagem_loja_path = resolverCaminhoImagemLoja($imagem_db);
 
-// placeholder se não tiver imagem
 if (!$imagem_loja_path) {
-    $imagem_loja_path = '../uploads/default-loja.png'; // ajuste: coloque um placeholder nesse caminho
-    // se não existir placeholder, podemos usar um externo
+    $imagem_loja_path = '../uploads/default-loja.png';
     if (!file_exists(__DIR__ . '/../uploads/default-loja.png')) {
         $imagem_loja_path = 'https://via.placeholder.com/300x120?text=Loja';
     }
@@ -102,8 +81,9 @@ if (!$imagem_loja_path) {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:wght@300;400;500;600;700;800&family=Zalando+Sans+SemiExpanded:wght@200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -112,22 +92,18 @@ if (!$imagem_loja_path) {
     <link rel="stylesheet" href="tema.php?slug=<?php echo urlencode($slug); ?>">
     <link rel="stylesheet" href="loja.css">
 
-
-    <title>
-        <?php echo htmlspecialchars($nome_loja) ?> - Loja Virtual
-    </title>
-
+    <title><?php echo htmlspecialchars($nome_loja); ?> - Loja Virtual</title>
 </head>
 
-<body>
+<body data-slug="<?php echo $slug ?>">
 
     <nav class="nav">
 
         <span class="logo" id="logo">
-            <?php echo htmlspecialchars($nome_loja) ?>
+            <?php echo htmlspecialchars($nome_loja); ?>
         </span>
 
-        <div class="icons-menu">
+        <div class="icons-menu" onclick="carrinho()">
 
             <div class="bag-area">
                 <i class="bi bi-handbag-fill" id="abrirCarrinho"></i>
@@ -155,9 +131,7 @@ if (!$imagem_loja_path) {
                 <img src="<?php echo $imagem_loja_path ?>" alt="<?php echo htmlspecialchars($nome_loja) ?>"
                     loading="lazy">
 
-                <h4>
-                    <?php echo htmlspecialchars($nome_loja) ?>
-                </h4>
+                <h4><?php echo htmlspecialchars($nome_loja) ?></h4>
 
             </div>
 
@@ -194,28 +168,12 @@ if (!$imagem_loja_path) {
 
     </aside>
 
-    <!-- ----------- CARRINHO ----------- -->
-
-    <div id="carrinho">
-        <button id="fecharCarrinho">
-            <i class="bi bi-x-lg"></i>
-        </button>
-
-        <h2>Seu Carrinho</h2>
-        <div id="lista-carrinho"></div>
-        <!-- <button class="btn-finalizar" id="btnFinalizar" onclick="carrinho()">Finalizar Pedido</button> -->
-
-        <button onclick="carrinho()">Finalizar Pedido</button>
-    </div>
-
     <header class="carrossel-container">
 
         <div class="carrossel-track">
 
             <img src="../img/FRETEGRATIS.png" alt="">
-
             <img src="../img/Banner moda feminina bolsa e acessorios desconto.png" alt="">
-
             <img src="../img/Banner Moda Masculina Nova Coleção Moderno Preto e Cinza.png" alt="">
 
         </div>
@@ -230,9 +188,7 @@ if (!$imagem_loja_path) {
                 <img src="<?php echo $imagem_loja_path ?>" alt="<?php echo htmlspecialchars($nome_loja) ?>"
                     loading="lazy">
 
-                <h1>
-                    <?php echo htmlspecialchars($nome_loja) ?>
-                </h1>
+                <h1><?php echo htmlspecialchars($nome_loja) ?></h1>
 
                 <label for="chat-shop-user" onclick="chatShopUser()">
                     <i class="bi bi-chat-right-dots"></i>
@@ -241,7 +197,6 @@ if (!$imagem_loja_path) {
 
             </div>
         </section>
-
 
         <!-- ----------- Produtos ----------- -->
 
@@ -259,15 +214,17 @@ if (!$imagem_loja_path) {
 
                 if ($result && $result->num_rows > 0) {
                     while ($p = $result->fetch_assoc()) {
-                        // resolve caminho da imagem do produto de forma segura
+
                         $prod_img_db = $p['imagem'] ?? '';
+                        $prod_path = null;
+
                         $prod_candidates = [
                             'uploads/loja/' . $prod_img_db,
                             'uploads/lojas/' . $prod_img_db,
                             'uploads/' . $prod_img_db,
                             $prod_img_db,
                         ];
-                        $prod_path = null;
+
                         foreach ($prod_candidates as $c) {
                             $physical = realpath(__DIR__ . "/../" . $c);
                             if ($physical && file_exists($physical)) {
@@ -275,8 +232,8 @@ if (!$imagem_loja_path) {
                                 break;
                             }
                         }
+
                         if (!$prod_path) {
-                            // tenta usar como já relativo (se por exemplo p['imagem'] for 'uploads/loja/x.png')
                             if ($prod_img_db && (strpos($prod_img_db, 'uploads/') === 0 || strpos($prod_img_db, '../') === 0)) {
                                 $prod_path = strpos($prod_img_db, '../') === 0 ? $prod_img_db : '../' . $prod_img_db;
                             } else {
@@ -288,16 +245,16 @@ if (!$imagem_loja_path) {
                         }
 
                         echo '<div class="card">
-            <img src="' . htmlspecialchars($prod_path) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
-            <h3>' . htmlspecialchars($p['nome']) . '</h3>
-            <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
-            <button class="btn-comprar" 
-                data-produto="' . htmlspecialchars($p['nome']) . '" 
-                data-preco="' . $p['preco'] . '" 
-                data-imagem="' . htmlspecialchars($prod_path) . '">
-                Adicionar ao Carrinho
-            </button>
-        </div>';
+                            <img src="' . htmlspecialchars($prod_path) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
+                            <h3>' . htmlspecialchars($p['nome']) . '</h3>
+                            <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
+                            <button class="btn-comprar" 
+                                data-produto="' . htmlspecialchars($p['nome']) . '" 
+                                data-preco="' . htmlspecialchars($p['preco']) . '" 
+                                data-imagem="' . htmlspecialchars($prod_path) . '">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>';
                     }
                 } else {
                     echo '<p>Nenhum produto cadastrado nesta loja.</p>';
@@ -317,54 +274,11 @@ if (!$imagem_loja_path) {
             <h2>Destaques</h2>
 
             <div class="banners-div" id="banners-div">
-
                 <img src="https://marketplace.canva.com/EAF0RxuySjc/1/0/800w/canva-banner-de-black-friday-formato-paisagem-org%C3%A2nico-delicado-em-lavanda-e-cinza-ard%C3%B3sia-yiGSUITHLd0.jpg"
                     alt="banner">
-
             </div>
 
         </section>
-
-        <!-- ----------- Contato -----------  -->
-
-        <!-- <section class="contato" id="contato">
-
-            <h2>Contato</h2>
-
-            <div class="contato-div" id="contato-div">
-
-                <div class="contato-labels">
-
-                    <label for="">
-                        <button id="">
-                            <i class="bi bi-person"></i>
-                            <?php echo $nome_loja ?>
-                        </button>
-                    </label>
-
-                    <label for="tel">
-                        <button id="tel">
-                            <i class="bi bi-telephone"></i>
-                            <?php echo $tel_loja ?>
-                        </button>
-                    </label>
-
-                    <label for="">
-                        <button id=""></button>
-                    </label>
-
-                    <label for="">
-                        <button id=""></button>
-                    </label>
-
-                </div>
-
-            </div>
-        </section> -->
-
-        <!-- <footer>
-            &copy;BolvierTeam
-        </footer> -->
 
     </main>
 
@@ -377,14 +291,11 @@ if (!$imagem_loja_path) {
 
 <script>
     function chatShopUser() {
-
         window.open("http://localhost/marcos_lojavirtual/chatVendedor.php", "_blank")
-
     }
 </script>
 
 <script>
-
     const track = document.querySelector('.carrossel-track');
     const slides = Array.from(track.children);
     let index = 0;
@@ -392,25 +303,28 @@ if (!$imagem_loja_path) {
     function slideShow() {
         index++;
         if (index >= slides.length) index = 0;
-        track.style.transform = `translateX(-${index * 100}%)`; // 100% da largura do container
+        track.style.transform = `translateX(-${index * 100}%)`;
     }
 
-    // Troca a cada 3 segundos
     setInterval(slideShow, 3000);
-
 </script>
 
 <script>
     window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".nav");
-
         if (window.scrollY > 10) {
             navbar.classList.add("scrolled");
         } else {
             navbar.classList.remove("scrolled");
         }
     });
+</script>
 
+<script>
+    function carrinho() {
+        const slug = "<?php echo urlencode($slug); ?>";
+        window.location.href = "carrinho.php?slug=" + slug;
+    }
 </script>
 
 </html>

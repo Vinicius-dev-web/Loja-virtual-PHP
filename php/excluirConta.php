@@ -8,40 +8,50 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuario_id = $_SESSION['usuario_id'];
 
-// Caminhos reais no seu PC
+// Caminhos das pastas de imagens
 $produtosDir = "C:/xampp/htdocs/marcos_lojavirtual/uploads/produtos/";
 $lojasDir = "C:/xampp/htdocs/marcos_lojavirtual/uploads/lojas/";
 
 /* ======================================================
-   1. APAGAR TODAS AS IMAGENS DOS PRODUTOS
+   1. BUSCAR IMAGEM DA LOJA DO USUÁRIO
 ====================================================== */
-if (is_dir($produtosDir)) {
+$sqlLoja = $conn->prepare("SELECT slug, imagem FROM lojas WHERE usuario_id = ?");
+$sqlLoja->bind_param("i", $usuario_id);
+$sqlLoja->execute();
+$resultLoja = $sqlLoja->get_result();
+$loja = $resultLoja->fetch_assoc();
+$sqlLoja->close();
 
-    $arquivos = glob($produtosDir . "*");
-
-    foreach ($arquivos as $arquivo) {
-        if (is_file($arquivo)) {
-            unlink($arquivo);
+if ($loja) {
+    // Apagar a imagem da loja
+    if (!empty($loja['imagem'])) {
+        $arquivoLoja = $lojasDir . $loja['imagem'];
+        if (file_exists($arquivoLoja)) {
+            unlink($arquivoLoja);
         }
     }
 }
 
 /* ======================================================
-   2. APAGAR IMAGENS DA LOJA
+   2. BUSCAR E APAGAR IMAGENS DOS PRODUTOS DO USUÁRIO
 ====================================================== */
-if (is_dir($lojasDir)) {
+$sqlProd = $conn->prepare("SELECT imagem FROM produtos WHERE usuario_id = ?");
+$sqlProd->bind_param("i", $usuario_id);
+$sqlProd->execute();
+$resultProd = $sqlProd->get_result();
 
-    $arquivosLoja = glob($lojasDir . "*");
-
-    foreach ($arquivosLoja as $file) {
-        if (is_file($file)) {
-            unlink($file);
+while ($prod = $resultProd->fetch_assoc()) {
+    if (!empty($prod['imagem'])) {
+        $arquivoProd = $produtosDir . $prod['imagem'];
+        if (file_exists($arquivoProd)) {
+            unlink($arquivoProd);
         }
     }
 }
+$sqlProd->close();
 
 /* ======================================================
-   3. Deletar produtos
+   3. DELETAR PRODUTOS DO BANCO
 ====================================================== */
 $stmtProd = $conn->prepare("DELETE FROM produtos WHERE usuario_id = ?");
 $stmtProd->bind_param("i", $usuario_id);
@@ -49,7 +59,7 @@ $stmtProd->execute();
 $stmtProd->close();
 
 /* ======================================================
-   4. Deletar loja
+   4. DELETAR LOJA DO BANCO
 ====================================================== */
 $stmtLoja = $conn->prepare("DELETE FROM lojas WHERE usuario_id = ?");
 $stmtLoja->bind_param("i", $usuario_id);
@@ -57,7 +67,7 @@ $stmtLoja->execute();
 $stmtLoja->close();
 
 /* ======================================================
-   5. Deletar usuário
+   5. DELETAR USUÁRIO
 ====================================================== */
 $stmtUser = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
 $stmtUser->bind_param("i", $usuario_id);
@@ -65,7 +75,7 @@ $stmtUser->execute();
 $stmtUser->close();
 
 /* ======================================================
-   6. Finalizar sessão
+   6. FINALIZAR SESSÃO
 ====================================================== */
 session_destroy();
 

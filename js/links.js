@@ -21,6 +21,6 @@ function homePage(){
 
 function carrinho(){
 
-    location.href = "carrinho.php"
+    window.open("carrinho.php", "_blank")
     
 }

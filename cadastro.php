@@ -41,7 +41,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
             <label for="inputImagemRegister" id="imageRegisterLabel">
 
-                <i class="bi bi-person" id="iconeLabelRegister"></i>
+                <i class="bi bi-person-fill" id="iconeLabelRegister"></i>
 
                 <span id="textoLabelRegister">Sua logo*</span>
 
@@ -52,35 +52,27 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             </label>
 
             <label class="nomeLabel" for="nomeLabel">
-                <i class="bi bi-person"></i>
+                <i class="bi bi-person-fill"></i>
                 <input type="text" name="nome" id="nomeLabel" placeholder="Empresa" required>
             </label>
 
             <label class="emailLabel" for="emailLabel">
-                <i class="bi bi-envelope"></i>
+                <i class="bi bi-envelope-fill"></i>
                 <input type="email" name="email" id="emailLabel" placeholder="Email" required>
             </label>
 
+            <label class="telLabel" for="telLabel">
+                <i class="bi bi-telephone-fill"></i>
+                <input type="text" name="tel" id="telLabel" placeholder="Telefone" required>
+            </label>
+
             <label class="senhaLabel" for="senhaLabel">
-                <i class="bi bi-key"></i>
+                <i class="bi bi-key-fill"></i>
                 <input type="password" name="senha" id="senhaLabel" placeholder="Senha" required>
             </label>
 
             <button type="submit"><b>CADASTRAR</b></button>
             <button type="button" onclick="window.location.href='login.php'"><b>ENTRAR</b></button>
-
-            <div id="msg" style="color: green;">
-                <b>
-                    <?php echo $msg_cadastro; ?>
-                </b><br>
-
-                <?php if (!empty($slug_loja)): ?>
-                <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
-                    style="color: blue; font-weight: bold;">
-                    👉 Acessar sua loja
-                </a>
-                <?php endif; ?>
-            </div>
 
         </form>
 
@@ -88,7 +80,23 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 </body>
 
 <script>
-    document.getElementById("imageRegisterLabel").addEventListener("change", function (event) {
+    document.getElementById("telLabel").addEventListener("input", function () {
+        let v = this.value.replace(/\D/g, "");
+        if (v.length > 11) v = v.slice(0, 11);
+
+        if (v.length > 6) {
+            this.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+        } else if (v.length > 2) {
+            this.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+        } else {
+            this.value = v;
+        }
+    });
+</script>
+
+<!-- JS correto para a pré-visualização -->
+<script>
+    document.getElementById("inputImagemRegister").addEventListener("change", function (event) {
         const file = event.target.files[0];
 
         if (file) {
@@ -97,7 +105,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             reader.onload = function (e) {
                 const preview = document.getElementById("previewImagemRegister");
                 preview.src = e.target.result;
-                preview.style.display = "block"; // mostra a imagem
+                preview.hidden = false;
 
                 // esconder ícone e texto
                 document.getElementById("iconeLabelRegister").style.display = "none";
@@ -107,30 +115,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             reader.readAsDataURL(file);
         }
     });
-
-</script>
-
-<script>
-    document.getElementById("inputImagemRegister").addEventListener("change", function (event) {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const preview = document.getElementById("previewImagemCog");
-                preview.src = e.target.result;
-                preview.style.display = "block"; // mostra a imagem
-
-                // esconder ícone e texto
-                document.getElementById("iconeLabelCog").style.display = "none";
-                document.getElementById("textoLabelCog").style.display = "none";
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-
 </script>
 
 </html>

@@ -32,34 +32,6 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
             <span>B</span>umi
         </span>
 
-        <label for="search">
-
-            <input type="search" id="search" placeholder="Pesquisar">
-
-            <i class="bi bi-search"></i>
-
-            <!-- <button type="submit" id="btnBuscar" onclick="admlogin()">| Buscar</button> -->
-        </label>
-
-        <div class="icons-menu">
-
-            <div class="bag-area">
-                <i class="bi bi-handbag-fill" id="abrirCarrinho"></i>
-                <span id="contadorCarrinho">0</span>
-            </div>
-
-            <button id="login">Entrar</button>
-            <button id="register">Cadastrar</button>
-
-            <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                alt="sem foto">
-
-            <div class="menu-mobile" id="abrirMenuMobile">
-                <i class="bi bi-list"></i>
-            </div>
-
-        </div>
-
     </nav>
 
     <!-- <aside class="esquerda" id="esquerda">
@@ -105,18 +77,6 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
         </div>
 
     </aside> -->
-
-    <!-- ----------- CARRINHO ----------- -->
-
-    <div id="carrinho">
-        <button id="fecharCarrinho">
-            <i class="bi bi-x-lg"></i>
-        </button>
-
-        <h2>Seu Carrinho</h2>
-        <div id="lista-carrinho"></div>
-        <button class="btn-finalizar" id="btnFinalizar">Finalizar Pedido</button>
-    </div>
 
     <header class="carrossel-container">
 

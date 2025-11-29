@@ -39,6 +39,7 @@ body {
 
         .nomeLabel,
         .emailLabel,
+        .telLabel,
         .senhaLabel {
 
             display: flex;

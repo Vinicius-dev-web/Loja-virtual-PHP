@@ -1,28 +1,26 @@
-async function carregarProdutos() {
-    try {
-        const resposta = await fetch("../php/getProdutos.php"); 
-        const produtos = await resposta.json();
+document.addEventListener("click", function (e) {
 
-        const container = document.getElementById("lista-produtos");
-        container.innerHTML = ""; 
+    const btn = e.target.closest(".btn-comprar");
+    if (!btn) return;
 
-        produtos.forEach(produto => {
-            const card = document.createElement("div");
-            card.classList.add("card-produto");
+    const nome = btn.dataset.produto;
+    const preco = btn.dataset.preco;
+    const imagem = btn.dataset.imagem;
 
-            card.innerHTML = `
-                <img src="../php/${produto.imagem}" alt="${produto.nome}" class="img-produto">
-                <h3>${produto.nome}</h3>
-                <p class="preco">R$ ${Number(produto.preco).toFixed(2)}</p>
-                <button class="btn-comprar">Comprar</button>
-            `;
+    // slug vindo do PHP
+    const slug = "<?php echo $slug ?>";
 
-            container.appendChild(card);
-        });
-
-    } catch (erro) {
-        console.error("Erro ao carregar produtos:", erro);
-    }
-}
-
-carregarProdutos();
+    fetch("../php/add_carrinho.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `nome=${encodeURIComponent(nome)}&preco=${encodeURIComponent(preco)}&imagem=${encodeURIComponent(imagem)}&slug=${slug}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "ok") {
+            document.getElementById("contadorCarrinho").innerText = data.total_itens;
+        }
+    });
+});

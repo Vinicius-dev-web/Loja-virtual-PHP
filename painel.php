@@ -58,39 +58,21 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
         <div class="painel-info">
 
-            <?php if (!empty($imagem_loja)): ?>
-                <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
-            <?php endif; ?>
-
-            <br>
-
-            <h2>
-                <?php echo $_SESSION['usuario']; ?>
-            </h2>
-
             <ul>
                 <li data-target="produtos">
-                    <i class="bi bi-speedometer2"></i>
+                    <i class="bi bi-grid-1x2-fill"></i>
                     <span>PAINEL</span>
                 </li>
                 <li data-target="create">
-                    <i class="bi bi-images"></i>
+                    <i class="bi bi-plus-square-fill"></i>
                     <span>CRIAR</span>
                 </li>
-                <!-- <li data-target="orders">
-                    <i class="bi bi-cart3"></i>
-                    <span>PEDIDOS</span>
-                </li>
-                <li data-target="msg-sec">
-                    <i class="bi bi-chat-square-dots"></i>
-                    <span>CHAT</span>
-                </li> -->
                 <li data-target="cog">
-                    <i class="bi bi-building-gear"></i>
-                    <span>LOJA</span>
+                    <i class="bi bi-brush-fill"></i>
+                    <span>Aparência</span>
                 </li>
                 <li data-target="loja" id="menuLoja">
-                    <i class="bi bi-arrow-up-right-square"></i>
+                    <i class="bi bi-globe"></i>
                     <span>Minha Loja</span>
                 </li>
                 <li data-target="" id="">
@@ -129,6 +111,26 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
     <main class="page">
 
         <section class="produtos" id="produtos">
+
+            <div class="adm-user">
+
+                <div class="info-adm">
+
+                    <?php if (!empty($imagem_loja)): ?>
+                    <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                    <?php endif; ?>
+
+                    <h2>
+                        Olá,
+                        <?php echo $_SESSION['usuario']; ?>!
+                    </h2>
+
+                </div>
+
+                <button data-target="create">Editar loja</button>
+
+            </div>
+
             <div class="tabela-container">
                 <table class="tabela-estilo">
                     <thead>
@@ -157,7 +159,7 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                     <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
                     <td>
                         <button class='btn-editar' onclick='editarProduto(" . $p['id'] . ", \"" . addslashes($p['nome']) . "\", " . $p['preco'] . ")'>
-                            <i class='bi bi-pencil-square'></i> Editar
+                            <span>Editar</span>
                         </button>
                     </td>
                 </tr>";
@@ -194,22 +196,40 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                         <div class="input-values-create">
 
                             <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
+                            
                             <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6"
                                 required>
 
                             <input type="text" name="" id="description-prod"
-                                placeholder="Descrição do produto. Ex.: Cor Amarelo, Azul">
+                                placeholder="Descrição do produto. Ex.: Tam. 38/39">
 
-                            <select name="" id="">
+                            <div class="checkBoxes">
 
-                                <option value="">Sem tamanho</option>
-                                <option value="">PP</option>
-                                <option value="">P</option>
-                                <option value="">M</option>
-                                <option value="">G</option>
-                                <option value="">GG</option>
+                                <div class="checkBox">
 
-                            </select>
+                                    <div class="values">
+                                        <span>PP</span>
+                                        <input type="checkbox" name="" id="" value="PP">
+                                    </div>
+                                    <div class="values">
+                                        <span>P</span>
+                                        <input type="checkbox" name="" id="" value="P">
+                                    </div>
+                                    <div class="values">
+                                        <span>M</span>
+                                        <input type="checkbox" name="" id="" value="M">
+                                    </div>
+                                    <div class="values">
+                                        <span>G</span>
+                                        <input type="checkbox" name="" id="" value="G">
+                                    </div>
+                                    <div class="values">
+                                        <span>GG</span>
+                                        <input type="checkbox" name="" id="" value="GG">
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -242,24 +262,13 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
             </div>
         </section>
 
-        <section class="orders" id="orders"></section>
-
         <section class="cog" id="cog">
 
             <div class="form-div">
 
-                <form action="" method="POST">
+                <h1>Personalizar</h1>
 
-                    <label id="labelImagemCog">
-
-                        <i class="bi bi-card-image" id="iconeLabelCog"></i>
-                        <span id="textoLabelCog">Coloque uma imagem*</span>
-
-                        <input type="file" id="inputImagem" name="imagem" accept="image/*" hidden>
-
-                        <img src="" alt="" id="previewImagemCog" hidden>
-
-                    </label>
+                <form action="" method="POST" class="form-input">
 
                     <div class="values-create" id="values-create">
 
@@ -285,34 +294,27 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
                             </select>
 
+
                         </div>
-
                         <button type="submit">Cadastrar</button>
-
 
                     </div>
 
+                    <label id="labelImagemCog">
 
-                </form>
+                        <i class="bi bi-card-image" id="iconeLabelCog"></i>
+                        <span id="textoLabelCog">Coloque uma imagem*</span>
 
-                <form action="php/salvarCor.php" method="POST">
-                    <label>Cor da Loja:</label>
+                        <input type="file" id="inputImagem" name="imagem" accept="image/*" hidden>
 
-                    <!-- ADICIONADO value para exibir cor salva -->
-                    <input type="color" name="cor_tema" id="corLoja" value="<?= $cor_tema ?>">
+                        <img src="" alt="" id="previewImagemCog" hidden>
 
-                    <input type="hidden" name="loja_id" value="<?= $loja_id ?>">
-                    <button type="submit">Salvar cor</button>
-                </form>
-
-                <form action="php/excluirConta.php" method="POST"
-                    onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!')">
-
-                    <button id="deleteAccount" type="submit">Excluir conta</button>
+                    </label>
 
                 </form>
 
             </div>
+
         </section>
 
         <section class="loja" id="loja">
@@ -323,98 +325,6 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
             </div>
-        </section>
-
-        <section class="msg-sec" id="msg-sec">
-            <ul class="painel-msg" id="painel-msg">
-
-                <li class="profile-msg" data-target="chat-div">
-
-                    <div class="profile-msg-card">
-
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-
-                        <h3>Vinicius</h3>
-
-                    </div>
-
-                    <div class="info-msg-card">
-
-                        <span class="info-msg-card" id="msg-msg-card">+1 mensagem</span>
-
-                    </div>
-
-                </li>
-                <li class="profile-msg" data-target="chat-div">
-
-                    <div class="profile-msg-card">
-
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-
-                        <h3>Vinicius</h3>
-
-                    </div>
-
-                    <div class="info-msg-card">
-
-                        <span class="info-msg-card" id="msg-msg-card">+1 mensagem</span>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </section>
-
-        <section class="chat-div" id="chat-div">
-
-            <div class="chat-form">
-
-                <div class="info-cliente">
-
-                    <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                        alt="sem foto">
-                    <h1>Cliente</h1>
-
-                </div>
-
-                <div class="msg-chat">
-                    <span>Cliente: Olá</span>
-                    <span>Cliente: Gostaria de saber qual o valor do Conjunto Baruk vermelho</span>
-                    <span>Cliente: Quanto custa?</span>
-                </div>
-
-                <div class="chat-commands" id="chat-commands">
-
-                    <div class="chat-commands-input" id="chat-commands-input">
-
-                        <label for="file-chat">
-
-                            <input type="file" name="" id="file-chat" hidden>
-
-                            <i class="bi bi-plus-lg"></i>
-
-                        </label>
-
-                        <input type="text" name="" id="" placeholder="Fale com o cliente...">
-
-                        <button type="submit">
-                            <i class="bi bi-send"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="showImgMsg" id="showImgMsg" hidden>
-                    <img src="" alt="">
-                </div>
-
-            </div>
-
         </section>
 
     </main>

@@ -1,6 +1,6 @@
 // Seleciona todos os itens do menu lateral
 const menuItems = document.querySelectorAll(".painel-info ul li");
-const menuItemsChat = document.querySelectorAll(".msg-sec ul li");
+const menuItemsChat = document.querySelectorAll(".adm-user button");
 
 // Seleciona todas as seções dentro do main.page
 const sections = document.querySelectorAll("main.page section");

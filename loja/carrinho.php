@@ -198,7 +198,7 @@ $telefone_loja = preg_replace('/\D/', '', $loja['telefone'] ?? '');
             return;
         }
 
-        let mensagem = "Olá! Quero finalizar meu pedido:%0A%0A";
+        let mensagem = "===== NOVO PEDIDO =====%0A%0A";
         let total = 0;
 
         produtos.forEach(p => {

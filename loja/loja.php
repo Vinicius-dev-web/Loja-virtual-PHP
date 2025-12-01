@@ -71,7 +71,51 @@ if (!$imagem_loja_path) {
         $imagem_loja_path = 'https://via.placeholder.com/300x120?text=Loja';
     }
 }
+
+// ==========================================
+// AQUI ADICIONE O CÓDIGO DO BANNER
+// ==========================================
+
+// Buscar todos os banners da loja
+$banners = [];
+$sqlBanner = "SELECT imagem FROM banners WHERE usuario_id = ? ORDER BY id ASC";
+$stmtBanner = $conn->prepare($sqlBanner);
+$stmtBanner->bind_param("i", $usuario_id);
+$stmtBanner->execute();
+$resultBanner = $stmtBanner->get_result();
+
+if ($resultBanner && $resultBanner->num_rows > 0) {
+    while ($b = $resultBanner->fetch_assoc()) {
+        $banner = trim($b['imagem']);
+        if ($banner) {
+            // Resolver caminho do banner
+            $candidates = [
+                '../uploads/banners/' . $banner,
+                'uploads/banners/' . $banner,
+            ];
+            $banner_path = null;
+            foreach ($candidates as $c) {
+                if (file_exists(__DIR__ . '/' . $c) || file_exists(__DIR__ . '/../' . $c)) {
+                    $banner_path = '../uploads/banners/' . $banner;
+                    break;
+                }
+            }
+            if (!$banner_path) {
+                $banner_path = 'https://via.placeholder.com/800x200?text=Banner';
+            }
+
+            $banners[] = $banner_path;
+        }
+    }
+}
+
+// Se não houver banners, usar um padrão
+if (empty($banners)) {
+    $banners[] = 'https://via.placeholder.com/800x200?text=Banner';
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -126,11 +170,11 @@ if (!$imagem_loja_path) {
 
             <header class="carrossel-container">
 
-                <div class="carrossel-track">
+                <div class="carrossel-track" id="banners-div">
 
-                    <img src="../img/FRETEGRATIS.png" alt="">
-                    <img src="../img/Banner moda feminina bolsa e acessorios desconto.png" alt="">
-                    <img src="../img/Banner Moda Masculina Nova Coleção Moderno Preto e Cinza.png" alt="">
+                    <?php foreach ($banners as $banner_path): ?>
+                        <img src="<?php echo htmlspecialchars($banner_path); ?>" alt="Banner da loja" loading="lazy">
+                    <?php endforeach; ?>
 
                 </div>
 

@@ -172,7 +172,7 @@ body {
             }
 
             img {
-                display: none;
+                display: flex;
 
                 width: 50%;
                 height: 100%;

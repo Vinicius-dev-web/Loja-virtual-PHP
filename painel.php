@@ -116,7 +116,7 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
             <div class="adm-user">
                 <div class="info-adm">
                     <?php if (!empty($imagem_loja)): ?>
-                        <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                    <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
                     <?php endif; ?>
 
                     <h2>
@@ -188,6 +188,40 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
 
             <div class="form-div" id="file-create">
+
+                <h1>Categorias</h1>
+
+                <form action="" class="form-categoria">
+
+                    <div class="categoria-destaque">
+
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                        <div class="destaque" id="destaque" onclick="openDestaque()">
+                            <img src="Bolvier.png" alt="">
+                            <h4>Destaque</h4>
+                        </div>
+                    </div>
+
+                </form>
 
                 <h1>Produto</h1>
 
@@ -318,17 +352,22 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                     <div class="banner-div">
 
-                        <label id="labelImagemBanner">
+                        <div class="label">
 
-                            <i class="bi bi-card-image" id="iconeLabelBanner"></i>
+                            <label id="labelImagemBanner">
 
-                            <span id="textoLabelBanner">Coloque uma imagem*</span>
+                                <i class="bi bi-card-image" id="iconeLabelBanner"></i>
 
-                            <input type="file" name="imagem" accept="image/*" required hidden>
+                                <span id="textoLabelBanner">Coloque uma imagem*</span>
 
-                            <img id="previewImagemBanner">
+                                <input type="file" name="imagem" accept="image/*" required hidden>
 
-                        </label>
+                                <img id="previewImagemBanner">
+
+                            </label>
+
+                            <button type="submit">Cadastrar</button>
+                        </div>
 
                         <div class="remove-div">
                             <?php
@@ -340,24 +379,26 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                             while ($banner = $resultB->fetch_assoc()):
                                 ?>
-                                <div class="banner-item" data-id="<?php echo $banner['id']; ?>">
-                                    <img src="uploads/banners/<?php echo htmlspecialchars($banner['imagem']); ?>"
-                                        alt="Banner">
-                                    <button class="remover-banner" type="button">Remover</button>
-                                </div>
+                            <div class="banner-item" data-id="<?php echo $banner['id']; ?>">
+                                <img src="uploads/banners/<?php echo htmlspecialchars($banner['imagem']); ?>"
+                                    alt="Banner">
+                                <button class="remover-banner" type="button">Remover</button>
+                            </div>
                             <?php endwhile; ?>
                         </div>
 
                     </div>
 
-                    <button type="submit">Cadastrar</button>
+
                 </form>
 
             </div>
         </section>
 
         <section class="cog" id="cog">
+
             <div class="form-div">
+
                 <h1>Personalizar</h1>
 
                 <form action="atualizar_loja.php" method="POST" class="form-input" enctype="multipart/form-data">
@@ -372,10 +413,10 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
                             <input type="text" name="descricao"
                                 placeholder="Descrição da loja. Ex.: Loja de Roupas e Sapatos 😎✌️👕👖👟">
 
-                            <select name="categoria" required>
+                            <select name="categoria-adm" id="categoria-adm" required>
                                 <option value="Sem descrição">Sem descrição</option>
                                 <option value="Roupas">Roupas</option>
-                                <option value="Sapatos">Sapatos</option>
+                                <option value="Sapatos">Sapataria</option>
                                 <option value="Roupas e Sapatos">Roupas e sapatos</option>
                                 <option value="Eletrônicos">Eletrônicos</option>
                                 <option value="Informática">Informática</option>
@@ -415,6 +456,8 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
     </main>
 
+    <!-- Modais edits -->
+
     <div class="edit-produto-table" id="edit-produto-table">
 
         <div class="edit-table">
@@ -447,6 +490,32 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
             </div>
         </div>
+    </div>
+
+    <div class="edit-destaque-create" id="edit-destaque-create">
+
+        <form action="">
+
+            <label for="imageDestaqueEdit" id="imageDestaqueLabel">
+
+                <input type="file" name="" id="imageDestaqueEdit" hidden>
+
+                <i class="bi bi-card-image"></i>
+                
+                <span>Adicione uma imagem*</span>
+                
+                <img src="" alt="" id="previewImagemDestaqueEdit">
+
+            </label>
+
+            <label for="inputDestaque" id="inputDestaqueLabel">
+                <i class="bi bi-pencil-fill"></i>
+                <input type="text" name="" id="inputDestaque" placeholder="Nome do destaque">
+            </label>
+
+            <button>Salvar</button>
+            <button id="fechar">Fechar</button>
+        </form>
     </div>
 
 </body>

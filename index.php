@@ -28,181 +28,63 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
 <body>
 
-    <nav class="nav">
+    <header>
 
-        <span class="logo" id="logo">
-            <span>B</span>olvier
-        </span>
+        <img src="Bolvier.png" alt="Bolvier">
 
-    </nav>
+        <h1>Bolvier Shop</h1>
 
-    <!-- <aside class="esquerda" id="esquerda">
-
-        <div class="fecharMenuMobile" id="fecharMenuMobile">
-            <i class="bi bi-arrow-left" style="margin-right: 10px;"></i>
-            <span>Voltar</span>
-        </div>
-
-        <div class="menu-left">
-
-            <div class="info-client">
-                <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                    alt="sem foto">
-                <h4>User-1b7cxyz4</h4>
-            </div>
-
-            <ul>
-                <li>
-                    <i class="bi bi-house"></i>
-                    <span>PAGINA INICIAL</span>
-                </li>
-                <li>
-                    <i class="bi bi-columns-gap"></i>
-                    <span>PRODUTOS</span>
-                </li>
-                <li>
-                    <details>
-                        <summary>
-                            <i class="bi bi-funnel"></i>
-                            <span>FILTRAR</span>
-                        </summary>
-
-                        <div class="list-deitails">
-                            <span>Camisas</span>
-                            <span>Perfumes</span>
-                            <span>Outros</span>
-                        </div>
-                    </details>
-                </li>
-            </ul>
-
-        </div>
-
-    </aside> -->
-
-    <header class="carrossel-container">
-
-        <div class="carrossel-track">
-
-            <img src="img/FRETEGRATIS.png" alt="">
-
-            <img src="img/Banner moda feminina bolsa e acessorios desconto.png" alt="">
-
-            <img src="img/Banner Moda Masculina Nova Coleção Moderno Preto e Cinza.png" alt="">
-
-        </div>
+        <button>Faça parte</button>
 
     </header>
 
+    <!-- <nav>
+        <button>Cadastrar</button>
+        <button>Entrar</button>
+    </nav> -->
+
     <main class="page" id="page">
 
-        <section class="home" id="home"></section>
+        <h2>Crie sua loja</h2>
+        <section class="home" id="home">
 
-        <!-- ----------- Produtos ----------- -->
 
-        <section class="produtos" id="produtos">
+            <div class="title">
 
-            <h1>Produtos</h1>
+                <h1>Crie sua loja online<br>hoje mesmo</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem nisi natus laborum similique.
+                    Similique voluptas, corporis nam nemo earum harum, laboriosam minima, rem cumque quisquam pariatur
+                    porro
+                    dolor nihil fugiat? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt deserunt
+                    quaerat quod sequi blanditiis perspiciatis accusantium beatae voluptates. Distinctio incidunt
+                    pariatur molestiae necessitatibus at, dolor eligendi tempora deleniti quae? Vero? Lorem ipsum dolor
+                    sit amet consectetur adipisicing elit. Enim cupiditate eaque praesentium a reprehenderit. Voluptates
+                    corporis error voluptate vel repellat laboriosam! Autem sit voluptatem recusandae consectetur
+                    aliquid quis natus odit?</p>
 
-            <div id="lista-produtos" class="lista-produtos">
-                <?php
-                $sql = "SELECT * FROM produtos ORDER BY id DESC";
-                $result = $conn->query($sql);
+            </div>
 
-                if ($result && $result->num_rows > 0) {
-                    while ($p = $result->fetch_assoc()) {
+            <img src="img/create.svg" alt="">
 
-                        $nome = htmlspecialchars($p['nome']);
-                        $imagem = htmlspecialchars($p['imagem']);
-                        $preco = number_format($p['preco'], 2, ',', '.');
+        </section>
 
-                        echo '
-                        <div class="card">
-                            <img src="' . $imagem . '" alt="' . $nome . '" loading="lazy">
+        <section class="mobile" id="mobile">
 
-                            <h3>' . $nome . '</h3>
-                            <p class="preco">R$ ' . $preco . '</p>
+            <img src="img/mobile.svg" alt="">
 
-                            <button class="btn-comprar" 
-                                data-produto="' . $nome . '" 
-                                data-preco="' . $p['preco'] . '" 
-                                data-imagem="' . $imagem . '">
-                                Adicionar ao Carrinho
-                            </button>
-                        </div>
-                        ';
-                    }
-                } else {
-                    echo '<p>Nenhum produto cadastrado.</p>';
-                }
-                ?>
+            <div class="title">
 
-                <!-- <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+                <h1>Sistema adaptado <br>em versões mobile<br></h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem nisi natus laborum similique.
+                    Similique voluptas, corporis nam nemo earum harum, laboriosam minima, rem cumque quisquam pariatur
+                    porro
+                    dolor nihil fugiat? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt deserunt
+                    quaerat quod sequi blanditiis perspiciatis accusantium beatae voluptates. Distinctio incidunt
+                    pariatur molestiae necessitatibus at, dolor eligendi tempora deleniti quae? Vero? Lorem ipsum dolor
+                    sit amet consectetur adipisicing elit. Enim cupiditate eaque praesentium a reprehenderit. Voluptates
+                    corporis error voluptate vel repellat laboriosam! Autem sit voluptatem recusandae consectetur
+                    aliquid quis natus odit?</p>
 
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
-
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
-
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
-
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
-
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-                <div class="card">
-                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
-
-                    <h3>Teste</h3>
-                    <p class="preco">R$50,00</p>
-
-                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
-                        data-imagem="">
-                        Adicionar ao Carrinho
-                    </button>
-                </div> -->
             </div>
 
         </section>
@@ -274,6 +156,52 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
             </div>
 
+        </section>
+
+        <section class="planos" id="planos">
+
+            <h2>Planos</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h2>Básico</h2>
+                    <p>Ideal para começar</p>
+                    <ul>
+                        <li>Recursos básicos</li>
+                        <li>até 20 produtos</li>
+                        <li>Até 2 banners personalizados</li>
+                        <!-- <li>Suporte básico</li> -->
+                    </ul>
+                    <button>R$ 0 / mês</button>
+                </div>
+
+                <div class="card destaque">
+                    <h2>Premium</h2>
+                    <p>Para quem quer crescer</p>
+                    <ul>
+                        <li>Loja ilimitada</li>
+                        <li>Produtos ilimitados</li>
+                        <li>Banners ilimitados</li>
+                        <li>Criação de categorias</li>
+                        <li>Controle de saída</li>
+                        <!-- <li>Suporte prioritário</li> -->
+                    </ul>
+                    <button>R$ 5 / mês</button>
+                </div>
+
+                <!-- <div class="card">
+                    <h2>Ultimate</h2>
+                    <p>Para profissionais</p>
+                    <ul>
+                        <li>Multi empresas</li>
+                        <li>Relatórios avançados</li>
+                        <li>Suporte 24h</li>
+                    </ul>
+                    <button>R$ 10 / mês</button>
+                </div> -->
+
+            </div>
         </section>
 
     </main>
